@@ -1,168 +1,178 @@
-// ===== The Essence of Science — Cover Animations =====
+// ===== The Essence of Science — Cover Animations (3D Book / Library) =====
 
 document.addEventListener('DOMContentLoaded', () => {
     const scene = document.querySelector('.scene');
+    const particles = document.getElementById('particles');
+    const lampLight = document.querySelector('.lamp-light');
+    const libraryShelves = document.getElementById('libraryShelves');
 
-    // --- Dust motes floating in lamplight ---
-    const dustContainer = document.getElementById('dustContainer');
+    // ───────────────────────────────────
+    // 1. Generate library bookshelves
+    // ───────────────────────────────────
+    const bookColors = [
+        '#3B1F0B', '#4A2410', '#2C1606', '#5C3318', '#1E1008',
+        '#6B3A1A', '#2A1A0A', '#4D2C14', '#3A2612', '#5A3520',
+        '#1C1208', '#3E2008', '#52301A', '#2E180C', '#442810',
+        '#693C20', '#241408', '#36200E', '#4E3018', '#5E3A22',
+        '#8B0000', '#2F4F4F', '#191970', '#2E0854', '#3C280C',
+    ];
 
+    function generateShelves() {
+        libraryShelves.innerHTML = '';
+        const rows = 4;
+        const shelfWidth = window.innerWidth;
+
+        for (let r = 0; r < rows; r++) {
+            const row = document.createElement('div');
+            row.className = 'shelf-row';
+
+            let filled = 0;
+            while (filled < shelfWidth) {
+                const book = document.createElement('div');
+                book.className = 'bg-book';
+                const w = 12 + Math.floor(Math.random() * 18);
+                const h = 70 + Math.floor(Math.random() * 50);
+                const color = bookColors[Math.floor(Math.random() * bookColors.length)];
+                const brightness = 0.6 + Math.random() * 0.5;
+
+                book.style.cssText = `
+                    width: ${w}px;
+                    height: ${h}px;
+                    background: linear-gradient(90deg,
+                        ${color} 0%,
+                        ${adjustBrightness(color, 1.3)} 45%,
+                        ${adjustBrightness(color, 0.8)} 55%,
+                        ${color} 100%);
+                    filter: brightness(${brightness});
+                    margin: 0 ${Math.random() < 0.15 ? 2 + Math.floor(Math.random() * 6) : 0}px;
+                `;
+
+                // Occasional tilted book
+                if (Math.random() < 0.06) {
+                    const tilt = -8 + Math.random() * 16;
+                    book.style.transform = `rotate(${tilt}deg)`;
+                    book.style.transformOrigin = 'bottom center';
+                }
+
+                row.appendChild(book);
+                filled += w + 2;
+            }
+
+            libraryShelves.appendChild(row);
+        }
+    }
+
+    function adjustBrightness(hex, factor) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        const clamp = (v) => Math.min(255, Math.max(0, Math.round(v)));
+        return `rgb(${clamp(r * factor)}, ${clamp(g * factor)}, ${clamp(b * factor)})`;
+    }
+
+    generateShelves();
+
+    // ───────────────────────────────────
+    // 2. Dust motes & golden particles
+    // ───────────────────────────────────
     function createDustMote() {
         const mote = document.createElement('div');
-        mote.className = 'dust-mote';
-        const size = 1.5 + Math.random() * 3.5;
-        // Concentrate dust in the lamplight area (center-right, upper-middle)
+        const size = 1.5 + Math.random() * 3;
+        const isGolden = Math.random() < 0.3;
+
+        // Concentrate near lamplight / center area
         const startX = 25 + Math.random() * 50;
-        const startY = 20 + Math.random() * 50;
+        const startY = 15 + Math.random() * 55;
+
+        const color = isGolden
+            ? `rgba(218, 165, 32, ${0.4 + Math.random() * 0.4})`
+            : `rgba(200, 180, 140, ${0.2 + Math.random() * 0.3})`;
 
         mote.style.cssText = `
+            position: absolute;
             width: ${size}px;
             height: ${size}px;
             left: ${startX}%;
             top: ${startY}%;
+            background: radial-gradient(circle, ${color}, transparent);
+            border-radius: 50%;
+            pointer-events: none;
             opacity: 0;
         `;
 
-        const duration = 6000 + Math.random() * 8000;
-        const driftX = (Math.random() - 0.5) * 80;
-        const driftY = -20 + Math.random() * 40;
-        const maxOpacity = 0.2 + Math.random() * 0.5;
+        const duration = 5000 + Math.random() * 9000;
+        const driftX = (Math.random() - 0.5) * 100;
+        const driftY = -30 + Math.random() * 60;
+        const maxOpacity = isGolden ? 0.5 + Math.random() * 0.5 : 0.3 + Math.random() * 0.4;
 
         mote.animate([
-            { opacity: 0, transform: `translate(0, 0) scale(${0.5 + Math.random() * 0.5})` },
+            { opacity: 0, transform: `translate(0, 0) scale(${0.4 + Math.random() * 0.4})` },
             { opacity: maxOpacity, transform: `translate(${driftX * 0.3}px, ${driftY * 0.3}px) scale(1)`, offset: 0.3 },
-            { opacity: maxOpacity * 0.8, transform: `translate(${driftX * 0.7}px, ${driftY * 0.7}px) scale(1.1)`, offset: 0.7 },
-            { opacity: 0, transform: `translate(${driftX}px, ${driftY}px) scale(0.6)` }
+            { opacity: maxOpacity * 0.7, transform: `translate(${driftX * 0.7}px, ${driftY * 0.7}px) scale(1.1)`, offset: 0.7 },
+            { opacity: 0, transform: `translate(${driftX}px, ${driftY}px) scale(0.5)` }
         ], {
             duration,
             easing: 'ease-in-out'
         }).onfinish = () => mote.remove();
 
-        dustContainer.appendChild(mote);
+        particles.appendChild(mote);
     }
 
-    // Create initial batch
-    for (let i = 0; i < 15; i++) {
+    // Initial burst
+    for (let i = 0; i < 20; i++) {
         setTimeout(createDustMote, Math.random() * 3000);
     }
-    // Continuous generation
-    setInterval(createDustMote, 400);
+    // Continuous
+    setInterval(createDustMote, 300);
 
-    // --- Arcane symbols that drift faintly ---
-    const arcaneContainer = document.getElementById('arcaneSymbols');
-    const symbols = [
-        '\u2609', // Sun
-        '\u263D', // Moon
-        '\u2641', // Earth
-        '\u2642', // Mars
-        '\u2643', // Jupiter
-        '\u2644', // Saturn
-        '\u2645', // Uranus
-        '\u263F', // Mercury
-        '\u2640', // Venus
-        '\u2648', // Aries
-        '\u2649', // Taurus
-        '\u264A', // Gemini
-        '\u03B1', // Alpha
-        '\u03B2', // Beta
-        '\u03B3', // Gamma
-        '\u03B4', // Delta
-        '\u03C0', // Pi
-        '\u03A3', // Sigma
-        '\u221E', // Infinity
-        '\u2202', // Partial derivative
-        '\u222B', // Integral
-        '\u2207', // Nabla
-        '\u0394', // Delta
-        '\u03A9', // Omega
-    ];
-
-    function createArcaneSymbol() {
-        const sym = document.createElement('div');
-        sym.className = 'arcane-symbol';
-        sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-
-        const x = 15 + Math.random() * 70;
-        const y = 10 + Math.random() * 60;
-        const size = 16 + Math.random() * 20;
-
-        sym.style.cssText = `
-            left: ${x}%;
-            top: ${y}%;
-            font-size: ${size}px;
-            opacity: 0;
-        `;
-
-        const duration = 8000 + Math.random() * 10000;
-        const maxOpacity = 0.03 + Math.random() * 0.05;
-
-        sym.animate([
-            { opacity: 0, transform: 'translateY(10px) scale(0.8)' },
-            { opacity: maxOpacity, transform: 'translateY(0) scale(1)', offset: 0.3 },
-            { opacity: maxOpacity, transform: 'translateY(-5px) scale(1)', offset: 0.7 },
-            { opacity: 0, transform: 'translateY(-15px) scale(0.9)' }
-        ], {
-            duration,
-            easing: 'ease-in-out'
-        }).onfinish = () => sym.remove();
-
-        arcaneContainer.appendChild(sym);
-    }
-
-    // Sparse arcane symbols
-    for (let i = 0; i < 5; i++) {
-        setTimeout(createArcaneSymbol, Math.random() * 5000);
-    }
-    setInterval(createArcaneSymbol, 2500);
-
-    // --- Subtle lamp flicker on the ambient light ---
-    const lampLight = document.querySelector('.lamp-light');
-    const darkness = document.querySelector('.darkness');
-
+    // ───────────────────────────────────
+    // 3. Lamp flicker
+    // ───────────────────────────────────
     function flickerLight() {
-        const intensity = 0.85 + Math.random() * 0.15;
+        const intensity = 0.82 + Math.random() * 0.18;
         if (lampLight) {
             lampLight.style.opacity = String(intensity);
         }
-        // Subtle darkness fluctuation
-        if (darkness) {
-            darkness.style.opacity = String(1.05 - intensity * 0.12);
-        }
-        setTimeout(flickerLight, 80 + Math.random() * 200);
+        // Occasional deeper flicker
+        const nextDelay = Math.random() < 0.05
+            ? 30 + Math.random() * 60  // quick flicker
+            : 80 + Math.random() * 220;
+        setTimeout(flickerLight, nextDelay);
     }
     flickerLight();
 
-    // --- Book glow intensifies on hover ---
-    const mainBook = document.querySelector('.main-book');
-    const bookAura = document.querySelector('.book-aura');
+    // ───────────────────────────────────
+    // 4. Mouse-responsive lamplight
+    // ───────────────────────────────────
+    scene.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
 
-    if (mainBook && bookAura) {
-        mainBook.addEventListener('mouseenter', () => {
-            bookAura.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            bookAura.style.opacity = '1';
-            bookAura.style.transform = 'scale(1.15)';
-            bookAura.style.background = `radial-gradient(
-                ellipse 60% 50% at 50% 40%,
-                rgba(218,165,32,0.12) 0%,
-                rgba(180,120,20,0.06) 40%,
-                transparent 70%
+        if (lampLight) {
+            const glowX = 38 + x * 14;
+            const glowY = 45 + y * 18;
+            lampLight.style.background = `radial-gradient(
+                ellipse 48% 58% at ${glowX}% ${glowY}%,
+                rgba(255,195,90,0.1) 0%,
+                rgba(255,155,55,0.04) 32%,
+                transparent 62%
             )`;
-        });
+        }
+    });
 
-        mainBook.addEventListener('mouseleave', () => {
-            bookAura.style.opacity = '';
-            bookAura.style.transform = '';
-            bookAura.style.background = '';
-        });
-    }
+    // ───────────────────────────────────
+    // 5. Book sparkles (golden sparks on cover)
+    // ───────────────────────────────────
+    const bookLink = document.querySelector('.book-link');
 
-    // --- Subtle page-turn sound ambiance (visual: occasional golden sparkle on book) ---
     function bookSparkle() {
-        const sparkle = document.createElement('div');
-        const bookRect = mainBook ? mainBook.getBoundingClientRect() : null;
-        if (!bookRect) return;
+        if (!bookLink) return;
+        const rect = bookLink.getBoundingClientRect();
+        if (rect.width === 0) return;
 
-        const x = bookRect.left + 40 + Math.random() * (bookRect.width - 80);
-        const y = bookRect.top + 20 + Math.random() * (bookRect.height - 40);
+        const sparkle = document.createElement('div');
+        const x = rect.left + 30 + Math.random() * (rect.width - 60);
+        const y = rect.top + 15 + Math.random() * (rect.height - 30);
         const size = 2 + Math.random() * 3;
 
         sparkle.style.cssText = `
@@ -174,37 +184,84 @@ document.addEventListener('DOMContentLoaded', () => {
             background: radial-gradient(circle, rgba(218,165,32,0.9), rgba(218,165,32,0));
             border-radius: 50%;
             pointer-events: none;
-            z-index: 16;
+            z-index: 18;
         `;
 
         sparkle.animate([
-            { opacity: 0, transform: 'scale(0.3)' },
-            { opacity: 0.8, transform: 'scale(1.5)' },
-            { opacity: 0, transform: 'scale(0.5) translateY(-8px)' }
+            { opacity: 0, transform: 'scale(0.2)' },
+            { opacity: 0.9, transform: 'scale(1.8)' },
+            { opacity: 0, transform: 'scale(0.4) translateY(-10px)' }
         ], {
-            duration: 1200 + Math.random() * 800,
+            duration: 1000 + Math.random() * 800,
             easing: 'ease-out'
         }).onfinish = () => sparkle.remove();
 
         document.body.appendChild(sparkle);
     }
 
-    setInterval(bookSparkle, 2000 + Math.random() * 2000);
+    // Sparkle timer (variable interval)
+    function scheduleSparkle() {
+        bookSparkle();
+        setTimeout(scheduleSparkle, 1500 + Math.random() * 2500);
+    }
+    setTimeout(scheduleSparkle, 1000);
 
-    // --- Mouse-responsive lamplight glow ---
-    scene.addEventListener('mousemove', (e) => {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
+    // ───────────────────────────────────
+    // 6. Larger floating light orbs
+    // ───────────────────────────────────
+    function createLightOrb() {
+        const orb = document.createElement('div');
+        const size = 6 + Math.random() * 14;
+        const startX = 20 + Math.random() * 60;
+        const startY = 25 + Math.random() * 45;
+        const goldHue = Math.random() < 0.6;
 
-        if (lampLight) {
-            const glowX = 35 + x * 15;
-            const glowY = 45 + y * 15;
-            lampLight.style.background = `radial-gradient(
-                ellipse 55% 65% at ${glowX}% ${glowY}%,
-                rgba(255,200,100,0.07) 0%,
-                rgba(255,160,60,0.03) 35%,
-                transparent 65%
-            )`;
-        }
+        const color = goldHue
+            ? `rgba(218, 165, 32, ${0.04 + Math.random() * 0.06})`
+            : `rgba(255, 220, 160, ${0.03 + Math.random() * 0.05})`;
+
+        orb.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${startX}%;
+            top: ${startY}%;
+            background: radial-gradient(circle, ${color}, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(${1 + Math.random() * 2}px);
+            opacity: 0;
+        `;
+
+        const duration = 8000 + Math.random() * 12000;
+        const driftX = (Math.random() - 0.5) * 60;
+        const driftY = -40 + Math.random() * 80;
+
+        orb.animate([
+            { opacity: 0, transform: 'translate(0, 0) scale(0.5)' },
+            { opacity: 1, transform: `translate(${driftX * 0.4}px, ${driftY * 0.4}px) scale(1)`, offset: 0.35 },
+            { opacity: 0.8, transform: `translate(${driftX * 0.75}px, ${driftY * 0.75}px) scale(1.2)`, offset: 0.7 },
+            { opacity: 0, transform: `translate(${driftX}px, ${driftY}px) scale(0.7)` }
+        ], {
+            duration,
+            easing: 'ease-in-out'
+        }).onfinish = () => orb.remove();
+
+        particles.appendChild(orb);
+    }
+
+    // Initial orbs
+    for (let i = 0; i < 6; i++) {
+        setTimeout(createLightOrb, Math.random() * 4000);
+    }
+    setInterval(createLightOrb, 1800);
+
+    // ───────────────────────────────────
+    // 7. Resize handler for bookshelves
+    // ───────────────────────────────────
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(generateShelves, 300);
     });
 });
