@@ -253,31 +253,18 @@ html, body {
 /* ===== NEWTON (positioned relative to tree group) ===== */
 .newton-svg {
     position: absolute;
-    bottom: 8px;
-    left: 55px;
+    bottom: 6px;
+    left: 40px;
 }
 
 /* ===== FALLING APPLE ===== */
 .falling-apple-wrap {
     position: absolute;
     top: 195px;
-    left: 157px;
+    left: 150px;
     z-index: 12;
-    animation: appleFall 5s ease-in infinite;
-    animation-delay: 3s;
     opacity: 0;
-}
-
-@keyframes appleFall {
-    0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
-    55%  { transform: translateY(160px) rotate(100deg); opacity: 1; }
-    72%  { transform: translateY(175px) rotate(150deg); opacity: 1; }
-    /* Bonk! hits Newton's head */
-    76%  { transform: translateY(170px) rotate(160deg) scale(1.15); opacity: 1; }
-    80%  { transform: translateY(175px) rotate(165deg); opacity: 1; }
-    /* Rolls off to the side */
-    90%  { transform: translateY(200px) translateX(-25px) rotate(220deg); opacity: 0.8; }
-    100% { transform: translateY(230px) translateX(-40px) rotate(260deg); opacity: 0; }
+    will-change: transform, opacity;
 }
 
 /* ===== THOUGHT BUBBLE ===== */
@@ -307,9 +294,9 @@ html, body {
 }
 
 /* Dots trail from bubble toward Newton's head (lower-right) */
-.dot-1 { width: 12px; height: 12px; top: 345px; left: 80px;  animation-delay: 0.1s; }
-.dot-2 { width: 8px;  height: 8px;  top: 358px; left: 110px; animation-delay: 0.2s; }
-.dot-3 { width: 5px;  height: 5px;  top: 368px; left: 135px; animation-delay: 0.3s; }
+.dot-1 { width: 12px; height: 12px; top: 340px; left: 70px;  animation-delay: 0.1s; }
+.dot-2 { width: 8px;  height: 8px;  top: 353px; left: 100px; animation-delay: 0.2s; }
+.dot-3 { width: 5px;  height: 5px;  top: 363px; left: 125px; animation-delay: 0.3s; }
 
 @keyframes thoughtAppear {
     0%, 100% { opacity: 0; transform: translateY(5px); }

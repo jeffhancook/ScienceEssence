@@ -206,95 +206,245 @@
             </div>
 
             <!-- Newton leaning back against tree (back rests on trunk to his right) -->
-            <svg class="newton-svg" viewBox="0 0 200 200" width="200" height="200">
+            <svg class="newton-svg" viewBox="0 0 220 210" width="220" height="210">
+                <defs>
+                    <!-- Skin shading -->
+                    <radialGradient id="skinGrad" cx="45%" cy="40%">
+                        <stop offset="0%" stop-color="#F2D4B0"/>
+                        <stop offset="70%" stop-color="#E8C39E"/>
+                        <stop offset="100%" stop-color="#D4A87C"/>
+                    </radialGradient>
+                    <!-- Coat fabric gradient -->
+                    <linearGradient id="coatGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#8B4513"/>
+                        <stop offset="50%" stop-color="#7B3F10"/>
+                        <stop offset="100%" stop-color="#6B3410"/>
+                    </linearGradient>
+                    <!-- Coat highlight -->
+                    <linearGradient id="coatHighlight" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#9B5523" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#6B3410" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+
                 <!-- Shadow on ground -->
-                <ellipse cx="80" cy="192" rx="75" ry="10" fill="rgba(0,0,0,0.12)"/>
+                <ellipse cx="85" cy="202" rx="80" ry="10" fill="rgba(0,0,0,0.1)"/>
 
-                <!-- Legs stretched out to the left (relaxed, slightly bent) -->
-                <!-- Left leg -->
-                <path d="M75 168 Q55 170 30 175 Q15 178 5 180"
-                      stroke="#3D2B1F" stroke-width="10" fill="none" stroke-linecap="round"/>
-                <!-- Right leg (crossed over slightly) -->
-                <path d="M85 170 Q65 175 45 182 Q30 187 20 188"
-                      stroke="#3D2B1F" stroke-width="9" fill="none" stroke-linecap="round"/>
-                <!-- Left shoe -->
-                <path d="M5 180 Q0 178 -2 182 Q-1 186 5 185" fill="#2C1810" stroke="#1a0f08" stroke-width="0.5"/>
-                <!-- Right shoe -->
-                <path d="M20 188 Q15 186 13 190 Q14 194 21 193" fill="#2C1810" stroke="#1a0f08" stroke-width="0.5"/>
+                <!-- === LEGS (stretched out to the left, relaxed) === -->
+                <!-- Left breeches -->
+                <path d="M78 172 Q60 174 38 178 Q22 181 10 184"
+                      stroke="#3D2B1F" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <!-- Right breeches (crossed slightly over) -->
+                <path d="M88 175 Q68 179 48 185 Q32 190 22 192"
+                      stroke="#3D2B1F" stroke-width="11" fill="none" stroke-linecap="round"/>
+                <!-- Knee buckles -->
+                <ellipse cx="38" cy="178" rx="3" ry="2" fill="#DAA520" opacity="0.7"/>
+                <ellipse cx="48" cy="185" rx="3" ry="2" fill="#DAA520" opacity="0.7"/>
+                <!-- Stockings (white, period-appropriate) -->
+                <path d="M10 184 Q4 186 2 188" stroke="#E8E0D8" stroke-width="9" fill="none" stroke-linecap="round"/>
+                <path d="M22 192 Q16 194 14 196" stroke="#E8E0D8" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <!-- Left shoe with buckle -->
+                <path d="M2 188 Q-4 186 -6 189 Q-5 194 2 193 Q6 192 8 190 Z" fill="#1a0f08"/>
+                <rect x="-2" y="189" width="5" height="3" rx="0.5" fill="#DAA520" opacity="0.8"/>
+                <!-- Right shoe with buckle -->
+                <path d="M14 196 Q8 194 6 197 Q7 202 14 201 Q18 200 20 198 Z" fill="#1a0f08"/>
+                <rect x="10" y="197" width="5" height="3" rx="0.5" fill="#DAA520" opacity="0.8"/>
 
-                <!-- Body (torso leaning back against tree trunk to the right) -->
-                <path d="M80 165 Q95 140 105 118 Q110 105 112 95"
-                      stroke="#7B3F10" stroke-width="22" fill="none" stroke-linecap="round"/>
-                <!-- Coat fill -->
-                <path d="M70 170 Q85 145 95 120 Q100 108 103 98
-                         L122 98 Q118 108 115 120 Q105 145 92 170 Z"
-                      fill="#7B3F10"/>
-                <!-- Coat darker edge -->
-                <path d="M70 170 Q85 145 95 120 Q100 108 103 98"
-                      stroke="#6B3410" stroke-width="2" fill="none"/>
-                <!-- Vest -->
-                <path d="M88 155 Q96 138 102 120 Q106 112 108 105
-                         L116 105 Q114 112 110 120 Q104 138 96 155 Z"
-                      fill="#DAA520" opacity="0.5"/>
-                <!-- Collar / cravat -->
-                <path d="M106 98 Q112 105 118 98" stroke="white" stroke-width="3.5" fill="none"/>
-                <path d="M112 100 L112 112 L110 108 L114 108 Z" fill="white" opacity="0.8"/>
+                <!-- === BODY (frock coat, leaning back ~25deg) === -->
+                <!-- Coat back panel -->
+                <path d="M72 175 Q88 148 98 125 Q104 110 108 100
+                         L128 100 Q124 110 120 125 Q112 148 98 175 Z"
+                      fill="url(#coatGrad)"/>
+                <!-- Coat highlight stripe -->
+                <path d="M85 170 Q95 145 103 122 Q107 112 110 104"
+                      stroke="url(#coatHighlight)" stroke-width="6" fill="none" opacity="0.4"/>
+                <!-- Coat left edge seam -->
+                <path d="M72 175 Q88 148 98 125 Q104 110 108 100"
+                      stroke="#5A2D0C" stroke-width="1.5" fill="none"/>
+                <!-- Coat right edge seam -->
+                <path d="M98 175 Q112 148 120 125 Q124 110 128 100"
+                      stroke="#5A2D0C" stroke-width="1.5" fill="none"/>
+                <!-- Coat tails (draping behind) -->
+                <path d="M95 175 Q100 182 98 190" stroke="#6B3410" stroke-width="5" fill="none" opacity="0.6" stroke-linecap="round"/>
+                <path d="M90 175 Q88 185 90 193" stroke="#6B3410" stroke-width="4" fill="none" opacity="0.5" stroke-linecap="round"/>
 
-                <!-- Left arm (resting on lap, holding book) -->
-                <path d="M95 125 Q80 140 70 152 Q62 160 58 162"
+                <!-- Vest / waistcoat -->
+                <path d="M92 160 Q100 140 106 122 Q110 114 112 108
+                         L122 108 Q120 114 116 122 Q110 140 102 160 Z"
+                      fill="#C8960F" opacity="0.7"/>
+                <!-- Vest buttons -->
+                <circle cx="107" cy="120" r="1.5" fill="#DAA520"/>
+                <circle cx="105" cy="130" r="1.5" fill="#DAA520"/>
+                <circle cx="103" cy="140" r="1.5" fill="#DAA520"/>
+                <circle cx="100" cy="150" r="1.5" fill="#DAA520"/>
+                <!-- Vest edge trim -->
+                <path d="M92 160 Q100 140 106 122 Q110 114 112 108"
+                      stroke="#B8860B" stroke-width="0.8" fill="none"/>
+
+                <!-- White shirt visible at chest -->
+                <path d="M110 105 Q115 108 120 105" fill="white" opacity="0.6"/>
+
+                <!-- Cravat (lace neck cloth) -->
+                <path d="M108 100 Q115 108 122 100" stroke="white" stroke-width="3" fill="none"/>
+                <path d="M113 103 Q115 108 113 114" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M117 103 Q115 108 117 114" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <!-- Lace detail on cravat -->
+                <path d="M111 112 Q115 116 119 112" stroke="#E8E0D8" stroke-width="1" fill="none"/>
+                <circle cx="115" cy="114" r="1" fill="white" opacity="0.5"/>
+
+                <!-- Coat buttons (front) -->
+                <circle cx="109" cy="110" r="1.2" fill="#DAA520" opacity="0.6"/>
+                <circle cx="108" cy="118" r="1.2" fill="#DAA520" opacity="0.6"/>
+
+                <!-- === LEFT ARM (resting on lap, holding open book) === -->
+                <!-- Upper arm -->
+                <path d="M100 125 Q88 138 78 150"
+                      stroke="#7B3F10" stroke-width="9" fill="none" stroke-linecap="round"/>
+                <!-- Forearm -->
+                <path d="M78 150 Q70 157 64 162"
                       stroke="#7B3F10" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <!-- Left hand -->
-                <circle cx="58" cy="162" r="5" fill="#E8C39E"/>
-                <!-- Book resting on lap -->
-                <rect x="45" y="155" width="25" height="18" rx="2" fill="#8B0000" transform="rotate(-8 57 164)"/>
-                <rect x="47" y="157" width="21" height="14" rx="1" fill="#A01010" transform="rotate(-8 57 164)"/>
-                <line x1="57" y1="155" x2="57" y2="173" stroke="#6B0000" stroke-width="1" transform="rotate(-8 57 164)"/>
-                <line x1="50" y1="161" x2="63" y2="159" stroke="#DAA520" stroke-width="0.5" opacity="0.6"/>
-                <line x1="50" y1="164" x2="63" y2="162" stroke="#DAA520" stroke-width="0.5" opacity="0.6"/>
+                <!-- Shirt cuff peeking out -->
+                <path d="M66 160 Q63 162 62 164" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
+                <!-- Hand with fingers -->
+                <path d="M62 164 Q58 162 56 164 Q55 167 58 168 Q60 168 62 166"
+                      fill="url(#skinGrad)" stroke="#D4A87C" stroke-width="0.5"/>
+                <path d="M62 166 Q60 170 58 170" stroke="#D4A87C" stroke-width="0.8" fill="none"/>
 
-                <!-- Right arm (relaxed at side, resting on ground) -->
-                <path d="M115 115 Q130 135 135 155 Q136 165 132 172"
+                <!-- Open book on lap -->
+                <g transform="rotate(-10 62 168)">
+                    <!-- Book cover -->
+                    <rect x="46" y="158" width="28" height="20" rx="2" fill="#6B0000"/>
+                    <!-- Book spine -->
+                    <line x1="60" y1="158" x2="60" y2="178" stroke="#4A0000" stroke-width="1.5"/>
+                    <!-- Left page -->
+                    <rect x="48" y="160" width="11" height="16" rx="1" fill="#F5F0E0"/>
+                    <!-- Right page -->
+                    <rect x="61" y="160" width="11" height="16" rx="1" fill="#F5F0E0"/>
+                    <!-- Text lines on pages -->
+                    <line x1="50" y1="164" x2="57" y2="164" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
+                    <line x1="50" y1="167" x2="56" y2="167" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
+                    <line x1="50" y1="170" x2="57" y2="170" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
+                    <line x1="63" y1="164" x2="70" y2="164" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
+                    <line x1="63" y1="167" x2="69" y2="167" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
+                    <line x1="63" y1="170" x2="70" y2="170" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
+                    <!-- Gold edge on book cover -->
+                    <rect x="46" y="158" width="28" height="20" rx="2" fill="none" stroke="#DAA520" stroke-width="0.5"/>
+                </g>
+
+                <!-- === RIGHT ARM (relaxed at side, palm on grass) === -->
+                <!-- Upper arm -->
+                <path d="M122 118 Q132 132 138 148"
+                      stroke="#7B3F10" stroke-width="9" fill="none" stroke-linecap="round"/>
+                <!-- Forearm -->
+                <path d="M138 148 Q142 160 140 172"
                       stroke="#7B3F10" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <!-- Right hand resting on grass -->
-                <ellipse cx="132" cy="174" rx="5" ry="4" fill="#E8C39E"/>
+                <!-- Shirt cuff -->
+                <path d="M141 168 Q140 172 139 174" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
+                <!-- Hand flat on ground with finger hints -->
+                <path d="M136 176 Q132 174 130 176 Q129 179 132 180 Q136 180 140 178 Q143 176 142 174 Z"
+                      fill="url(#skinGrad)" stroke="#D4A87C" stroke-width="0.5"/>
+                <path d="M133 177 Q131 178 131 176" stroke="#D4A87C" stroke-width="0.5" fill="none"/>
+                <path d="M136 177 Q135 179 134 178" stroke="#D4A87C" stroke-width="0.5" fill="none"/>
 
-                <!-- Neck -->
-                <rect x="107" y="82" width="10" height="14" rx="3" fill="#E8C39E"/>
+                <!-- === NECK === -->
+                <path d="M112 88 Q115 94 118 88" fill="url(#skinGrad)"/>
+                <rect x="110" y="84" width="12" height="14" rx="4" fill="url(#skinGrad)"/>
+                <!-- Neck shadow -->
+                <path d="M111 92 Q116 96 121 92" stroke="#D4A87C" stroke-width="1" fill="none" opacity="0.3"/>
 
-                <!-- Head (tilted back, resting against trunk, gazing up at canopy) -->
-                <ellipse cx="112" cy="68" rx="18" ry="22" fill="#E8C39E" transform="rotate(15 112 68)"/>
+                <!-- === HEAD (tilted back, resting against trunk) === -->
+                <g transform="rotate(12 118 68)">
+                    <!-- Head shape -->
+                    <ellipse cx="118" cy="68" rx="20" ry="24" fill="url(#skinGrad)"/>
+                    <!-- Jawline definition -->
+                    <path d="M100 72 Q105 85 118 88 Q131 85 136 72" stroke="#D4A87C" stroke-width="0.8" fill="none" opacity="0.3"/>
+                    <!-- Ear left -->
+                    <ellipse cx="98" cy="68" rx="4" ry="6" fill="#E8C39E"/>
+                    <ellipse cx="98" cy="68" rx="2.5" ry="4" fill="#DDB892" opacity="0.5"/>
+                    <!-- Ear right (partially hidden by wig) -->
+                    <ellipse cx="138" cy="66" rx="3.5" ry="5" fill="#E8C39E"/>
 
-                <!-- Wig -->
-                <path d="M94 68 Q92 48 97 38 Q102 28 112 25 Q122 28 127 38 Q132 48 130 68"
-                      fill="#D4D4D4" stroke="#C0C0C0" stroke-width="0.5" transform="rotate(15 112 68)"/>
-                <!-- Wig curls left -->
-                <path d="M92 60 Q86 66 88 74 Q86 81 90 86" stroke="#C8C8C8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                <path d="M94 68 Q88 74 91 81" stroke="#B8B8B8" stroke-width="2" fill="none"/>
-                <!-- Wig curls right -->
-                <path d="M132 56 Q138 62 136 70 Q138 78 134 83" stroke="#C8C8C8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                <path d="M130 64 Q136 70 133 77" stroke="#B8B8B8" stroke-width="2" fill="none"/>
+                    <!-- === WIG === -->
+                    <!-- Main wig volume -->
+                    <path d="M97 70 Q94 50 99 38 Q104 28 118 24 Q132 28 137 38 Q142 50 139 70"
+                          fill="#D8D8D8"/>
+                    <!-- Wig top volume -->
+                    <path d="M100 45 Q105 22 118 20 Q131 22 136 45"
+                          fill="#E0E0E0"/>
+                    <!-- Part line -->
+                    <path d="M118 22 Q118 30 117 40" stroke="#C0C0C0" stroke-width="0.8" fill="none"/>
+                    <!-- Wig wave texture -->
+                    <path d="M100 40 Q105 37 108 40 Q111 43 114 40" stroke="#C8C8C8" stroke-width="1" fill="none" opacity="0.6"/>
+                    <path d="M122 38 Q125 35 128 38 Q131 41 134 38" stroke="#C8C8C8" stroke-width="1" fill="none" opacity="0.6"/>
+                    <path d="M98 52 Q102 49 106 52" stroke="#C8C8C8" stroke-width="0.8" fill="none" opacity="0.5"/>
+                    <path d="M130 50 Q134 47 138 50" stroke="#C8C8C8" stroke-width="0.8" fill="none" opacity="0.5"/>
 
-                <!-- Eyes (gazing upward at the canopy/apple) -->
-                <ellipse cx="105" cy="62" rx="3.5" ry="4" fill="white"/>
-                <ellipse cx="119" cy="59" rx="3.5" ry="4" fill="white"/>
-                <circle cx="105" cy="60" r="2" fill="#2C1810"/>
-                <circle cx="119" cy="57" r="2" fill="#2C1810"/>
-                <circle cx="105.5" cy="59.5" r="0.7" fill="white"/>
-                <circle cx="119.5" cy="56.5" r="0.7" fill="white"/>
+                    <!-- Wig curls left (cascading ringlets) -->
+                    <path d="M96 58 Q89 63 91 72" stroke="#D0D0D0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M91 72 Q87 77 90 84" stroke="#C8C8C8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                    <path d="M90 84 Q87 89 90 94" stroke="#C0C0C0" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <!-- Inner curl detail -->
+                    <path d="M97 62 Q92 67 94 74" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
+                    <path d="M93 76 Q90 81 92 87" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
 
-                <!-- Eyebrows (relaxed, slightly raised) -->
-                <path d="M100 56 Q105 53 109 56" stroke="#8B7355" stroke-width="1.5" fill="none"/>
-                <path d="M115 53 Q119 50 123 53" stroke="#8B7355" stroke-width="1.5" fill="none"/>
+                    <!-- Wig curls right (cascading ringlets) -->
+                    <path d="M140 56 Q147 61 145 70" stroke="#D0D0D0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M145 70 Q149 75 146 82" stroke="#C8C8C8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                    <path d="M146 82 Q149 87 146 92" stroke="#C0C0C0" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <!-- Inner curl detail -->
+                    <path d="M139 60 Q144 65 142 72" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
+                    <path d="M143 74 Q146 79 144 85" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
 
-                <!-- Nose -->
-                <path d="M112 61 Q110 67 112 69" stroke="#D4A574" stroke-width="1.3" fill="none"/>
+                    <!-- === FACE === -->
+                    <!-- Eyes -->
+                    <ellipse cx="110" cy="63" rx="4.5" ry="5" fill="white"/>
+                    <ellipse cx="126" cy="61" rx="4.5" ry="5" fill="white"/>
+                    <!-- Iris -->
+                    <circle cx="110" cy="61" r="2.8" fill="#4A6741"/>
+                    <circle cx="126" cy="59" r="2.8" fill="#4A6741"/>
+                    <!-- Pupil -->
+                    <circle cx="110" cy="60.5" r="1.5" fill="#1a1a1a"/>
+                    <circle cx="126" cy="58.5" r="1.5" fill="#1a1a1a"/>
+                    <!-- Eye highlights -->
+                    <circle cx="111.2" cy="59.8" r="0.8" fill="white"/>
+                    <circle cx="127.2" cy="57.8" r="0.8" fill="white"/>
+                    <!-- Eyelids (upper) -->
+                    <path d="M105 60 Q110 57 115 60" stroke="#9B8265" stroke-width="1.2" fill="none"/>
+                    <path d="M121 58 Q126 55 131 58" stroke="#9B8265" stroke-width="1.2" fill="none"/>
+                    <!-- Lower lash line -->
+                    <path d="M106 66 Q110 68 114 66" stroke="#C4A882" stroke-width="0.5" fill="none" opacity="0.4"/>
+                    <path d="M122 64 Q126 66 130 64" stroke="#C4A882" stroke-width="0.5" fill="none" opacity="0.4"/>
+                    <!-- Eyelashes (subtle) -->
+                    <path d="M105 60 Q104 58 105 57" stroke="#8B7355" stroke-width="0.5" fill="none"/>
+                    <path d="M121 58 Q120 56 121 55" stroke="#8B7355" stroke-width="0.5" fill="none"/>
 
-                <!-- Gentle content smile -->
-                <path d="M107 74 Q112 78 117 74" stroke="#C4956A" stroke-width="1.2" fill="none"/>
+                    <!-- Eyebrows (expressive, slightly raised in thought) -->
+                    <path d="M104 55 Q110 51 116 55" stroke="#8B7355" stroke-width="1.8" fill="none"/>
+                    <path d="M120 53 Q126 49 132 53" stroke="#8B7355" stroke-width="1.8" fill="none"/>
 
-                <!-- Cheek blush -->
-                <ellipse cx="101" cy="70" rx="4" ry="2.5" fill="#E8A090" opacity="0.25"/>
-                <ellipse cx="123" cy="68" rx="4" ry="2.5" fill="#E8A090" opacity="0.25"/>
+                    <!-- Nose (more defined) -->
+                    <path d="M118 58 Q116 64 114 68 Q113 70 116 71 Q118 72 120 71 Q122 70 121 68"
+                          stroke="#D4A574" stroke-width="1.2" fill="none"/>
+                    <!-- Nostril hint -->
+                    <path d="M116 70 Q117 71 118 70" stroke="#C49A6C" stroke-width="0.6" fill="none"/>
+
+                    <!-- Mouth -->
+                    <path d="M112 77 Q118 81 124 77" stroke="#C4956A" stroke-width="1.3" fill="none"/>
+                    <!-- Upper lip -->
+                    <path d="M112 77 Q115 75 118 76 Q121 75 124 77" stroke="#C4956A" stroke-width="0.8" fill="none"/>
+                    <!-- Lower lip highlight -->
+                    <path d="M114 79 Q118 82 122 79" fill="#D4A07A" opacity="0.3"/>
+
+                    <!-- Cheek blush -->
+                    <ellipse cx="105" cy="72" rx="5" ry="3" fill="#E8A090" opacity="0.2"/>
+                    <ellipse cx="131" cy="70" rx="5" ry="3" fill="#E8A090" opacity="0.2"/>
+
+                    <!-- Chin dimple -->
+                    <path d="M117 84 Q118 85 119 84" stroke="#D4A87C" stroke-width="0.5" fill="none" opacity="0.4"/>
+
+                    <!-- Forehead crease (thoughtful) -->
+                    <path d="M108 50 Q118 48 128 50" stroke="#D4A87C" stroke-width="0.4" fill="none" opacity="0.25"/>
+                </g>
             </svg>
 
             <!-- Thought bubble -->

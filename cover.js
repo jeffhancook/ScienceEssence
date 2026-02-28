@@ -7,12 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const clouds = document.querySelectorAll('.cloud');
     const sun = document.querySelector('.sun');
 
-    // --- Parallax on mouse move ---
+    // --- Parallax on mouse move (sky elements only, tree stays fixed) ---
     scene.addEventListener('mousemove', (e) => {
         const x = (e.clientX / window.innerWidth - 0.5) * 2;
         const y = (e.clientY / window.innerHeight - 0.5) * 2;
 
-        if (treeGroup) treeGroup.style.transform = `translate(${x * -8}px, ${y * -4}px)`;
         if (sun) sun.style.transform = `translate(${x * 15}px, ${y * 10}px) scale(${1 + y * 0.02})`;
 
         clouds.forEach((cloud, i) => {
@@ -143,6 +142,112 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     setInterval(createSparkle, 1000);
+
+    // --- Physics-based falling apple ---
+    const fallingApple = document.querySelector('.falling-apple-wrap');
+    if (fallingApple) {
+        const GRAVITY = 380;          // px/s² (acceleration)
+        const HEAD_Y = 131;           // distance from apple start to top of Newton's head (px)
+        const GROUND_Y = 320;         // distance from apple start to ground (px)
+        const RESTITUTION = 0.35;     // bounciness (energy kept per bounce)
+        const WOBBLE_AMP = 4;         // slight horizontal wobble during fall
+        const SPIN_SPEED = 90;        // degrees per second rotation
+        const INTERVAL = 7000;        // ms between drops
+        const FADE_AFTER = 2;         // fade after N bounces off head
+
+        function dropApple() {
+            let y = 0;
+            let vy = 0;               // vertical velocity
+            let vx = 0;               // horizontal velocity after head bonk
+            let x = 0;
+            let rotation = 0;
+            let bounceCount = 0;
+            let opacity = 1;
+            let hitHead = false;
+            let phase = 'falling';     // falling -> bouncing -> rolling -> done
+            let lastTime = null;
+
+            fallingApple.style.opacity = '1';
+            fallingApple.style.transform = 'translate(0, 0) rotate(0deg)';
+
+            function frame(timestamp) {
+                if (!lastTime) lastTime = timestamp;
+                const dt = Math.min((timestamp - lastTime) / 1000, 0.05); // cap dt
+                lastTime = timestamp;
+
+                if (phase === 'falling' || phase === 'bouncing') {
+                    // Apply gravity
+                    vy += GRAVITY * dt;
+                    y += vy * dt;
+                    x += vx * dt;
+
+                    // Slight wobble while in free-fall (air resistance asymmetry)
+                    if (!hitHead) {
+                        x = Math.sin(y * 0.03) * WOBBLE_AMP * (y / HEAD_Y);
+                    }
+
+                    // Spin proportional to velocity
+                    rotation += SPIN_SPEED * dt * (vy > 0 ? 1 : -0.5);
+
+                    // Hit Newton's head
+                    if (!hitHead && y >= HEAD_Y) {
+                        hitHead = true;
+                        y = HEAD_Y;
+                        vy = -vy * RESTITUTION;   // bounce up
+                        vx = -30 - Math.random() * 20; // deflect to the left
+                        bounceCount++;
+                        phase = 'bouncing';
+                    }
+
+                    // Hit ground after bouncing off head
+                    if (hitHead && y >= GROUND_Y) {
+                        y = GROUND_Y;
+                        vy = -vy * (RESTITUTION * 0.6); // less bouncy on ground
+                        vx *= 0.7;                        // friction
+                        bounceCount++;
+
+                        // Stop bouncing when velocity is tiny
+                        if (Math.abs(vy) < 15) {
+                            phase = 'rolling';
+                            vy = 0;
+                        }
+                    }
+
+                    // Fade out after a couple bounces
+                    if (bounceCount >= FADE_AFTER) {
+                        opacity = Math.max(0, opacity - dt * 0.8);
+                    }
+                } else if (phase === 'rolling') {
+                    // Roll along ground with friction
+                    vx *= (1 - 2.5 * dt); // ground friction
+                    x += vx * dt;
+                    rotation += vx * dt * 3;
+                    opacity = Math.max(0, opacity - dt * 0.6);
+
+                    if (opacity <= 0) {
+                        phase = 'done';
+                    }
+                }
+
+                fallingApple.style.opacity = String(opacity);
+                fallingApple.style.transform =
+                    `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${rotation.toFixed(1)}deg)`;
+
+                if (phase !== 'done' && opacity > 0) {
+                    requestAnimationFrame(frame);
+                } else {
+                    // Reset for next drop
+                    fallingApple.style.opacity = '0';
+                }
+            }
+
+            requestAnimationFrame(frame);
+        }
+
+        // First drop after a short delay, then repeat
+        setTimeout(dropApple, 2500);
+        setInterval(dropApple, INTERVAL);
+    }
 
     // --- Cycle thought bubble text ---
     const thoughts = [
