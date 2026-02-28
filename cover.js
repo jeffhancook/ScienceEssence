@@ -1,285 +1,210 @@
-// ===== ScienceEssence Cover Page Animations =====
+// ===== The Essence of Science — Cover Animations =====
 
 document.addEventListener('DOMContentLoaded', () => {
-
     const scene = document.querySelector('.scene');
-    const treeGroup = document.querySelector('.tree-newton-group');
-    const clouds = document.querySelectorAll('.cloud');
-    const sun = document.querySelector('.sun');
 
-    // --- Parallax on mouse move (sky elements only, tree stays fixed) ---
-    scene.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    // --- Dust motes floating in lamplight ---
+    const dustContainer = document.getElementById('dustContainer');
 
-        if (sun) sun.style.transform = `translate(${x * 15}px, ${y * 10}px) scale(${1 + y * 0.02})`;
+    function createDustMote() {
+        const mote = document.createElement('div');
+        mote.className = 'dust-mote';
+        const size = 1.5 + Math.random() * 3.5;
+        // Concentrate dust in the lamplight area (center-right, upper-middle)
+        const startX = 25 + Math.random() * 50;
+        const startY = 20 + Math.random() * 50;
 
-        clouds.forEach((cloud, i) => {
-            const factor = (i + 1) * 5;
-            cloud.style.marginTop = `${y * factor}px`;
-        });
-    });
-
-    // --- Create grass blades along the horizon ---
-    const grassSvg = document.querySelector('.grass-blades');
-    if (grassSvg) {
-        const numBlades = 200;
-        for (let i = 0; i < numBlades; i++) {
-            const x = Math.random() * 1920;
-            const height = 15 + Math.random() * 50;
-            const sway = 5 + Math.random() * 12;
-            const delay = Math.random() * 2;
-            const g1 = Math.floor(100 + Math.random() * 80);
-            const g2 = Math.floor(80 + Math.random() * 60);
-
-            const blade = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            const cp1x = x + (Math.random() - 0.5) * sway;
-            const cp2x = x + (Math.random() - 0.5) * sway * 1.5;
-            blade.setAttribute('d', `M${x} 120 Q${cp1x} ${120 - height * 0.6} ${cp2x} ${120 - height}`);
-            blade.setAttribute('stroke', `rgb(${30 + Math.floor(Math.random() * 40)}, ${g1}, ${g2})`);
-            blade.setAttribute('stroke-width', (1 + Math.random() * 2.5).toString());
-            blade.setAttribute('fill', 'none');
-            blade.setAttribute('stroke-linecap', 'round');
-            blade.style.animation = `bladeSway ${2 + Math.random() * 2}s ease-in-out ${delay}s infinite alternate`;
-            grassSvg.appendChild(blade);
-        }
-    }
-
-    // Also populate the top grass blades layer
-    const grassTop = document.querySelector('.grass-blades-top');
-    if (grassTop) {
-        const numBlades = 120;
-        for (let i = 0; i < numBlades; i++) {
-            const x = Math.random() * 1920;
-            const height = 10 + Math.random() * 30;
-            const sway = 3 + Math.random() * 8;
-            const delay = Math.random() * 2;
-            const g1 = Math.floor(120 + Math.random() * 60);
-            const g2 = Math.floor(100 + Math.random() * 50);
-
-            const blade = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            const cp1x = x + (Math.random() - 0.5) * sway;
-            blade.setAttribute('d', `M${x} 60 Q${cp1x} ${60 - height * 0.6} ${x + (Math.random()-0.5)*sway} ${60 - height}`);
-            blade.setAttribute('stroke', `rgb(${50 + Math.floor(Math.random() * 30)}, ${g1}, ${g2})`);
-            blade.setAttribute('stroke-width', (0.8 + Math.random() * 1.5).toString());
-            blade.setAttribute('fill', 'none');
-            blade.setAttribute('stroke-linecap', 'round');
-            blade.style.animation = `bladeSway ${2.5 + Math.random() * 2}s ease-in-out ${delay}s infinite alternate`;
-            grassTop.appendChild(blade);
-        }
-    }
-
-    // Add blade sway keyframes
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes bladeSway {
-            from { transform: rotate(-2deg); transform-origin: bottom center; }
-            to { transform: rotate(2deg); transform-origin: bottom center; }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // --- Falling leaves from tree ---
-    function createLeaf() {
-        const leaf = document.createElement('div');
-        leaf.style.cssText = `
-            position: absolute;
-            width: ${6 + Math.random() * 8}px;
-            height: ${4 + Math.random() * 6}px;
-            background: ${['#4CAF50', '#66BB6A', '#81C784', '#A5D6A7', '#8BC34A', '#689F38'][Math.floor(Math.random() * 6)]};
-            border-radius: 0 50% 50% 50%;
-            top: ${30 + Math.random() * 20}%;
-            left: ${55 + Math.random() * 30}%;
-            z-index: 12;
-            pointer-events: none;
-            opacity: 0.8;
-        `;
-
-        const duration = 4 + Math.random() * 6;
-        const xDrift = -50 + Math.random() * 100;
-        leaf.animate([
-            { transform: 'translate(0, 0) rotate(0deg)', opacity: 0.8 },
-            { transform: `translate(${xDrift * 0.3}px, 100px) rotate(${90 + Math.random() * 180}deg)`, opacity: 0.7 },
-            { transform: `translate(${xDrift * 0.7}px, 250px) rotate(${180 + Math.random() * 180}deg)`, opacity: 0.5 },
-            { transform: `translate(${xDrift}px, 400px) rotate(${360 + Math.random() * 360}deg)`, opacity: 0 }
-        ], {
-            duration: duration * 1000,
-            easing: 'ease-in'
-        }).onfinish = () => leaf.remove();
-
-        scene.appendChild(leaf);
-    }
-
-    setInterval(createLeaf, 2500);
-
-    // --- Fireflies / sparkles ---
-    function createSparkle() {
-        const sparkle = document.createElement('div');
-        const size = 2 + Math.random() * 4;
-        sparkle.style.cssText = `
-            position: absolute;
+        mote.style.cssText = `
             width: ${size}px;
             height: ${size}px;
-            background: radial-gradient(circle, rgba(255,255,200,0.9), rgba(255,255,150,0));
-            border-radius: 50%;
-            top: ${30 + Math.random() * 35}%;
-            left: ${Math.random() * 100}%;
-            z-index: 15;
-            pointer-events: none;
+            left: ${startX}%;
+            top: ${startY}%;
+            opacity: 0;
         `;
 
-        const duration = 3 + Math.random() * 4;
-        sparkle.animate([
-            { opacity: 0, transform: 'scale(0.5)' },
-            { opacity: 0.8, transform: 'scale(1.2)' },
-            { opacity: 0, transform: 'scale(0.5) translateY(-30px)' }
+        const duration = 6000 + Math.random() * 8000;
+        const driftX = (Math.random() - 0.5) * 80;
+        const driftY = -20 + Math.random() * 40;
+        const maxOpacity = 0.2 + Math.random() * 0.5;
+
+        mote.animate([
+            { opacity: 0, transform: `translate(0, 0) scale(${0.5 + Math.random() * 0.5})` },
+            { opacity: maxOpacity, transform: `translate(${driftX * 0.3}px, ${driftY * 0.3}px) scale(1)`, offset: 0.3 },
+            { opacity: maxOpacity * 0.8, transform: `translate(${driftX * 0.7}px, ${driftY * 0.7}px) scale(1.1)`, offset: 0.7 },
+            { opacity: 0, transform: `translate(${driftX}px, ${driftY}px) scale(0.6)` }
         ], {
-            duration: duration * 1000,
+            duration,
             easing: 'ease-in-out'
-        }).onfinish = () => sparkle.remove();
+        }).onfinish = () => mote.remove();
 
-        scene.appendChild(sparkle);
+        dustContainer.appendChild(mote);
     }
 
-    setInterval(createSparkle, 1000);
-
-    // --- Physics-based falling apple ---
-    const fallingApple = document.querySelector('.falling-apple-wrap');
-    if (fallingApple) {
-        const GRAVITY = 380;          // px/s² (acceleration)
-        const HEAD_Y = 131;           // distance from apple start to top of Newton's head (px)
-        const GROUND_Y = 320;         // distance from apple start to ground (px)
-        const RESTITUTION = 0.35;     // bounciness (energy kept per bounce)
-        const WOBBLE_AMP = 4;         // slight horizontal wobble during fall
-        const SPIN_SPEED = 90;        // degrees per second rotation
-        const INTERVAL = 7000;        // ms between drops
-        const FADE_AFTER = 2;         // fade after N bounces off head
-
-        function dropApple() {
-            let y = 0;
-            let vy = 0;               // vertical velocity
-            let vx = 0;               // horizontal velocity after head bonk
-            let x = 0;
-            let rotation = 0;
-            let bounceCount = 0;
-            let opacity = 1;
-            let hitHead = false;
-            let phase = 'falling';     // falling -> bouncing -> rolling -> done
-            let lastTime = null;
-
-            fallingApple.style.opacity = '1';
-            fallingApple.style.transform = 'translate(0, 0) rotate(0deg)';
-
-            function frame(timestamp) {
-                if (!lastTime) lastTime = timestamp;
-                const dt = Math.min((timestamp - lastTime) / 1000, 0.05); // cap dt
-                lastTime = timestamp;
-
-                if (phase === 'falling' || phase === 'bouncing') {
-                    // Apply gravity
-                    vy += GRAVITY * dt;
-                    y += vy * dt;
-                    x += vx * dt;
-
-                    // Slight wobble while in free-fall (air resistance asymmetry)
-                    if (!hitHead) {
-                        x = Math.sin(y * 0.03) * WOBBLE_AMP * (y / HEAD_Y);
-                    }
-
-                    // Spin proportional to velocity
-                    rotation += SPIN_SPEED * dt * (vy > 0 ? 1 : -0.5);
-
-                    // Hit Newton's head
-                    if (!hitHead && y >= HEAD_Y) {
-                        hitHead = true;
-                        y = HEAD_Y;
-                        vy = -vy * RESTITUTION;   // bounce up
-                        vx = -30 - Math.random() * 20; // deflect to the left
-                        bounceCount++;
-                        phase = 'bouncing';
-                    }
-
-                    // Hit ground after bouncing off head
-                    if (hitHead && y >= GROUND_Y) {
-                        y = GROUND_Y;
-                        vy = -vy * (RESTITUTION * 0.6); // less bouncy on ground
-                        vx *= 0.7;                        // friction
-                        bounceCount++;
-
-                        // Stop bouncing when velocity is tiny
-                        if (Math.abs(vy) < 15) {
-                            phase = 'rolling';
-                            vy = 0;
-                        }
-                    }
-
-                    // Fade out after a couple bounces
-                    if (bounceCount >= FADE_AFTER) {
-                        opacity = Math.max(0, opacity - dt * 0.8);
-                    }
-                } else if (phase === 'rolling') {
-                    // Roll along ground with friction
-                    vx *= (1 - 2.5 * dt); // ground friction
-                    x += vx * dt;
-                    rotation += vx * dt * 3;
-                    opacity = Math.max(0, opacity - dt * 0.6);
-
-                    if (opacity <= 0) {
-                        phase = 'done';
-                    }
-                }
-
-                fallingApple.style.opacity = String(opacity);
-                fallingApple.style.transform =
-                    `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${rotation.toFixed(1)}deg)`;
-
-                if (phase !== 'done' && opacity > 0) {
-                    requestAnimationFrame(frame);
-                } else {
-                    // Reset for next drop
-                    fallingApple.style.opacity = '0';
-                }
-            }
-
-            requestAnimationFrame(frame);
-        }
-
-        // First drop after a short delay, then repeat
-        setTimeout(dropApple, 2500);
-        setInterval(dropApple, INTERVAL);
+    // Create initial batch
+    for (let i = 0; i < 15; i++) {
+        setTimeout(createDustMote, Math.random() * 3000);
     }
+    // Continuous generation
+    setInterval(createDustMote, 400);
 
-    // --- Cycle thought bubble text ---
-    const thoughts = [
-        'F = G(m₁m₂)/r²',
-        'F = ma',
-        'What if light is particles?',
-        'Every action...',
-        '∫ F·ds = ΔKE',
-        'Gravity!',
-        'Principia Mathematica',
-        'v = u + at'
+    // --- Arcane symbols that drift faintly ---
+    const arcaneContainer = document.getElementById('arcaneSymbols');
+    const symbols = [
+        '\u2609', // Sun
+        '\u263D', // Moon
+        '\u2641', // Earth
+        '\u2642', // Mars
+        '\u2643', // Jupiter
+        '\u2644', // Saturn
+        '\u2645', // Uranus
+        '\u263F', // Mercury
+        '\u2640', // Venus
+        '\u2648', // Aries
+        '\u2649', // Taurus
+        '\u264A', // Gemini
+        '\u03B1', // Alpha
+        '\u03B2', // Beta
+        '\u03B3', // Gamma
+        '\u03B4', // Delta
+        '\u03C0', // Pi
+        '\u03A3', // Sigma
+        '\u221E', // Infinity
+        '\u2202', // Partial derivative
+        '\u222B', // Integral
+        '\u2207', // Nabla
+        '\u0394', // Delta
+        '\u03A9', // Omega
     ];
 
-    const thoughtText = document.querySelector('.thought-text');
-    let thoughtIndex = 0;
+    function createArcaneSymbol() {
+        const sym = document.createElement('div');
+        sym.className = 'arcane-symbol';
+        sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
 
-    if (thoughtText) {
-        setInterval(() => {
-            thoughtIndex = (thoughtIndex + 1) % thoughts.length;
-            thoughtText.textContent = thoughts[thoughtIndex];
-        }, 5000);
+        const x = 15 + Math.random() * 70;
+        const y = 10 + Math.random() * 60;
+        const size = 16 + Math.random() * 20;
+
+        sym.style.cssText = `
+            left: ${x}%;
+            top: ${y}%;
+            font-size: ${size}px;
+            opacity: 0;
+        `;
+
+        const duration = 8000 + Math.random() * 10000;
+        const maxOpacity = 0.03 + Math.random() * 0.05;
+
+        sym.animate([
+            { opacity: 0, transform: 'translateY(10px) scale(0.8)' },
+            { opacity: maxOpacity, transform: 'translateY(0) scale(1)', offset: 0.3 },
+            { opacity: maxOpacity, transform: 'translateY(-5px) scale(1)', offset: 0.7 },
+            { opacity: 0, transform: 'translateY(-15px) scale(0.9)' }
+        ], {
+            duration,
+            easing: 'ease-in-out'
+        }).onfinish = () => sym.remove();
+
+        arcaneContainer.appendChild(sym);
     }
 
-    // --- Title letter glow on hover ---
-    const titleWords = document.querySelectorAll('.title-word');
-    titleWords.forEach(word => {
-        word.addEventListener('mouseenter', () => {
-            word.style.filter = 'drop-shadow(0 0 15px rgba(74, 45, 138, 0.5))';
-            word.style.transition = 'filter 0.3s ease';
+    // Sparse arcane symbols
+    for (let i = 0; i < 5; i++) {
+        setTimeout(createArcaneSymbol, Math.random() * 5000);
+    }
+    setInterval(createArcaneSymbol, 2500);
+
+    // --- Subtle lamp flicker on the ambient light ---
+    const lampLight = document.querySelector('.lamp-light');
+    const darkness = document.querySelector('.darkness');
+
+    function flickerLight() {
+        const intensity = 0.85 + Math.random() * 0.15;
+        if (lampLight) {
+            lampLight.style.opacity = String(intensity);
+        }
+        // Subtle darkness fluctuation
+        if (darkness) {
+            darkness.style.opacity = String(1.05 - intensity * 0.12);
+        }
+        setTimeout(flickerLight, 80 + Math.random() * 200);
+    }
+    flickerLight();
+
+    // --- Book glow intensifies on hover ---
+    const mainBook = document.querySelector('.main-book');
+    const bookAura = document.querySelector('.book-aura');
+
+    if (mainBook && bookAura) {
+        mainBook.addEventListener('mouseenter', () => {
+            bookAura.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            bookAura.style.opacity = '1';
+            bookAura.style.transform = 'scale(1.15)';
+            bookAura.style.background = `radial-gradient(
+                ellipse 60% 50% at 50% 40%,
+                rgba(218,165,32,0.12) 0%,
+                rgba(180,120,20,0.06) 40%,
+                transparent 70%
+            )`;
         });
-        word.addEventListener('mouseleave', () => {
-            word.style.filter = 'drop-shadow(2px 3px 4px rgba(0,0,0,0.15))';
+
+        mainBook.addEventListener('mouseleave', () => {
+            bookAura.style.opacity = '';
+            bookAura.style.transform = '';
+            bookAura.style.background = '';
         });
+    }
+
+    // --- Subtle page-turn sound ambiance (visual: occasional golden sparkle on book) ---
+    function bookSparkle() {
+        const sparkle = document.createElement('div');
+        const bookRect = mainBook ? mainBook.getBoundingClientRect() : null;
+        if (!bookRect) return;
+
+        const x = bookRect.left + 40 + Math.random() * (bookRect.width - 80);
+        const y = bookRect.top + 20 + Math.random() * (bookRect.height - 40);
+        const size = 2 + Math.random() * 3;
+
+        sparkle.style.cssText = `
+            position: fixed;
+            left: ${x}px;
+            top: ${y}px;
+            width: ${size}px;
+            height: ${size}px;
+            background: radial-gradient(circle, rgba(218,165,32,0.9), rgba(218,165,32,0));
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 16;
+        `;
+
+        sparkle.animate([
+            { opacity: 0, transform: 'scale(0.3)' },
+            { opacity: 0.8, transform: 'scale(1.5)' },
+            { opacity: 0, transform: 'scale(0.5) translateY(-8px)' }
+        ], {
+            duration: 1200 + Math.random() * 800,
+            easing: 'ease-out'
+        }).onfinish = () => sparkle.remove();
+
+        document.body.appendChild(sparkle);
+    }
+
+    setInterval(bookSparkle, 2000 + Math.random() * 2000);
+
+    // --- Mouse-responsive lamplight glow ---
+    scene.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+
+        if (lampLight) {
+            const glowX = 35 + x * 15;
+            const glowY = 45 + y * 15;
+            lampLight.style.background = `radial-gradient(
+                ellipse 55% 65% at ${glowX}% ${glowY}%,
+                rgba(255,200,100,0.07) 0%,
+                rgba(255,160,60,0.03) 35%,
+                transparent 65%
+            )`;
+        }
     });
 });

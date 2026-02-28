@@ -3,545 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScienceEssence</title>
+    <title>The Essence of Science</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="scene">
-        <!-- Sun -->
-        <div class="sun">
-            <div class="sun-rays"></div>
-        </div>
+        <!-- Ambient darkness overlay -->
+        <div class="darkness"></div>
 
-        <!-- Clouds -->
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-
-        <!-- Birds -->
-        <svg class="bird bird-1" viewBox="0 0 40 20" width="40" height="20">
-            <path d="M0 10 Q10 0 20 10 Q30 0 40 10" stroke="#555" stroke-width="2" fill="none"/>
-        </svg>
-        <svg class="bird bird-2" viewBox="0 0 30 15" width="30" height="15">
-            <path d="M0 7 Q7 0 15 7 Q22 0 30 7" stroke="#666" stroke-width="1.5" fill="none"/>
-        </svg>
-        <svg class="bird bird-3" viewBox="0 0 25 12" width="25" height="12">
-            <path d="M0 6 Q6 0 12 6 Q18 0 25 6" stroke="#777" stroke-width="1.5" fill="none"/>
-        </svg>
-
-        <!-- Distant hills -->
-        <div class="hills">
-            <div class="hill hill-far"></div>
-            <div class="hill hill-mid"></div>
-        </div>
-
-        <!-- Ground plane (grass) -->
-        <div class="ground"></div>
-
-        <!-- Grass blades along the horizon line -->
-        <svg class="grass-blades-top" viewBox="0 0 1920 60" preserveAspectRatio="none"></svg>
-
-        <!-- Tree + Newton group (anchored to ground) -->
-        <div class="tree-newton-group">
-
-            <!-- The full tree SVG -->
-            <svg class="tree-svg" viewBox="0 0 400 520" width="400" height="520">
-                <defs>
-                    <radialGradient id="canopy1" cx="50%" cy="50%">
-                        <stop offset="0%" stop-color="#4CAF50"/>
-                        <stop offset="80%" stop-color="#2E7D32"/>
-                    </radialGradient>
-                    <radialGradient id="canopy2" cx="50%" cy="50%">
-                        <stop offset="0%" stop-color="#66BB6A"/>
-                        <stop offset="80%" stop-color="#388E3C"/>
-                    </radialGradient>
-                    <radialGradient id="canopy3" cx="50%" cy="50%">
-                        <stop offset="0%" stop-color="#81C784"/>
-                        <stop offset="80%" stop-color="#43A047"/>
-                    </radialGradient>
-                    <radialGradient id="canopy4" cx="50%" cy="50%">
-                        <stop offset="0%" stop-color="#43A047"/>
-                        <stop offset="80%" stop-color="#1B5E20"/>
-                    </radialGradient>
-                    <radialGradient id="canopy5" cx="40%" cy="45%">
-                        <stop offset="0%" stop-color="#7CB342"/>
-                        <stop offset="80%" stop-color="#558B2F"/>
-                    </radialGradient>
-                </defs>
-
-                <!-- Tree shadow on ground -->
-                <ellipse cx="200" cy="510" rx="160" ry="12" fill="rgba(0,0,0,0.1)"/>
-
-                <!-- Roots -->
-                <path d="M160 490 Q130 500 100 495 Q90 493 85 488" stroke="#4A2E14" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <path d="M170 495 Q150 510 125 508" stroke="#4A2E14" stroke-width="6" fill="none" stroke-linecap="round"/>
-                <path d="M240 490 Q270 500 300 495 Q310 493 318 488" stroke="#4A2E14" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <path d="M230 495 Q250 510 275 508" stroke="#4A2E14" stroke-width="6" fill="none" stroke-linecap="round"/>
-                <path d="M195 498 Q190 515 185 520" stroke="#4A2E14" stroke-width="5" fill="none" stroke-linecap="round"/>
-
-                <!-- Main trunk -->
-                <path d="M165 490 Q155 440 150 380 Q145 320 155 270 Q160 240 170 210 Q180 185 195 170"
-                      stroke="#5D3A1A" stroke-width="28" fill="none" stroke-linecap="round"/>
-                <path d="M235 490 Q245 440 248 380 Q250 320 242 270 Q237 240 228 210 Q218 185 205 170"
-                      stroke="#5D3A1A" stroke-width="26" fill="none" stroke-linecap="round"/>
-                <!-- Trunk fill -->
-                <path d="M165 490 Q155 440 150 380 Q145 320 155 270 Q160 240 170 210 Q180 185 195 170
-                         L205 170 Q218 185 228 210 Q237 240 242 270 Q250 320 248 380 Q245 440 235 490 Z"
-                      fill="#5D3A1A"/>
-                <!-- Trunk center highlight -->
-                <path d="M185 480 Q180 420 180 360 Q180 300 188 250 Q192 225 198 200"
-                      stroke="#6B4423" stroke-width="8" fill="none" opacity="0.5" stroke-linecap="round"/>
-
-                <!-- Bark texture lines -->
-                <path d="M175 460 Q185 445 178 430" stroke="#4A2E14" stroke-width="2" fill="none" opacity="0.6"/>
-                <path d="M210 440 Q220 425 212 410" stroke="#4A2E14" stroke-width="2" fill="none" opacity="0.6"/>
-                <path d="M180 390 Q190 375 183 360" stroke="#4A2E14" stroke-width="2" fill="none" opacity="0.6"/>
-                <path d="M215 370 Q225 355 218 340" stroke="#4A2E14" stroke-width="2" fill="none" opacity="0.6"/>
-                <path d="M185 320 Q195 305 188 290" stroke="#4A2E14" stroke-width="2" fill="none" opacity="0.6"/>
-                <path d="M220 300 Q230 285 222 270" stroke="#4A2E14" stroke-width="2" fill="none" opacity="0.6"/>
-                <!-- Knot hole -->
-                <ellipse cx="195" cy="350" rx="6" ry="9" fill="#3E2310" opacity="0.7"/>
-                <ellipse cx="195" cy="350" rx="3" ry="5" fill="#2A1808"/>
-
-                <!-- Major branches -->
-                <!-- Left branch 1 -->
-                <path d="M165 290 Q130 260 90 240 Q60 225 40 230"
-                      stroke="#5D3A1A" stroke-width="14" fill="none" stroke-linecap="round"/>
-                <!-- Left branch 2 -->
-                <path d="M158 330 Q120 310 80 300 Q50 295 25 305"
-                      stroke="#5D3A1A" stroke-width="10" fill="none" stroke-linecap="round"/>
-                <!-- Left sub-branch -->
-                <path d="M100 248 Q85 230 70 215" stroke="#5D3A1A" stroke-width="6" fill="none" stroke-linecap="round"/>
-                <!-- Right branch 1 -->
-                <path d="M235 290 Q270 260 310 240 Q340 225 365 230"
-                      stroke="#5D3A1A" stroke-width="14" fill="none" stroke-linecap="round"/>
-                <!-- Right branch 2 -->
-                <path d="M242 330 Q280 310 320 300 Q350 295 380 305"
-                      stroke="#5D3A1A" stroke-width="10" fill="none" stroke-linecap="round"/>
-                <!-- Right sub-branch -->
-                <path d="M300 248 Q320 230 335 215" stroke="#5D3A1A" stroke-width="6" fill="none" stroke-linecap="round"/>
-                <!-- Top branches -->
-                <path d="M190 200 Q170 170 150 150" stroke="#5D3A1A" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <path d="M210 200 Q230 170 255 150" stroke="#5D3A1A" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <path d="M200 180 Q200 150 200 130" stroke="#5D3A1A" stroke-width="7" fill="none" stroke-linecap="round"/>
-
-                <!-- Leaf canopy clusters (behind branches) -->
-                <!-- Back layer - darker -->
-                <ellipse cx="200" cy="160" rx="85" ry="65" fill="url(#canopy4)" class="leaf-c" style="--d:0s"/>
-                <ellipse cx="120" cy="220" rx="70" ry="55" fill="url(#canopy4)" class="leaf-c" style="--d:0.4s"/>
-                <ellipse cx="280" cy="220" rx="70" ry="55" fill="url(#canopy4)" class="leaf-c" style="--d:0.8s"/>
-
-                <!-- Mid layer -->
-                <ellipse cx="80" cy="250" rx="60" ry="45" fill="url(#canopy1)" class="leaf-c" style="--d:0.2s"/>
-                <ellipse cx="320" cy="250" rx="60" ry="45" fill="url(#canopy1)" class="leaf-c" style="--d:0.6s"/>
-                <ellipse cx="150" cy="180" rx="65" ry="50" fill="url(#canopy2)" class="leaf-c" style="--d:0.1s"/>
-                <ellipse cx="250" cy="180" rx="65" ry="50" fill="url(#canopy2)" class="leaf-c" style="--d:0.5s"/>
-                <ellipse cx="200" cy="120" rx="70" ry="50" fill="url(#canopy3)" class="leaf-c" style="--d:0.3s"/>
-
-                <!-- Front layer - brighter -->
-                <ellipse cx="140" cy="260" rx="55" ry="40" fill="url(#canopy5)" class="leaf-c" style="--d:0.7s"/>
-                <ellipse cx="260" cy="260" rx="55" ry="40" fill="url(#canopy5)" class="leaf-c" style="--d:0.15s"/>
-                <ellipse cx="200" cy="150" rx="60" ry="40" fill="url(#canopy3)" class="leaf-c" style="--d:0.45s"/>
-                <ellipse cx="100" cy="195" rx="45" ry="35" fill="url(#canopy2)" class="leaf-c" style="--d:0.9s"/>
-                <ellipse cx="300" cy="195" rx="45" ry="35" fill="url(#canopy2)" class="leaf-c" style="--d:0.35s"/>
-
-                <!-- Top puffs -->
-                <ellipse cx="170" cy="105" rx="40" ry="30" fill="url(#canopy3)" class="leaf-c" style="--d:0.25s"/>
-                <ellipse cx="230" cy="105" rx="40" ry="30" fill="url(#canopy5)" class="leaf-c" style="--d:0.55s"/>
-                <ellipse cx="200" cy="85" rx="35" ry="28" fill="url(#canopy2)" class="leaf-c" style="--d:0.65s"/>
-
-                <!-- Leaf detail textures (small dark spots) -->
-                <circle cx="150" cy="160" r="5" fill="#1B5E20" opacity="0.3"/>
-                <circle cx="250" cy="170" r="6" fill="#1B5E20" opacity="0.25"/>
-                <circle cx="100" cy="240" r="4" fill="#1B5E20" opacity="0.3"/>
-                <circle cx="300" cy="240" r="5" fill="#1B5E20" opacity="0.25"/>
-                <circle cx="200" cy="110" r="4" fill="#1B5E20" opacity="0.3"/>
-
-                <!-- Apples on tree -->
-                <g class="tree-apple">
-                    <circle cx="130" cy="195" r="7" fill="url(#appleGrad)"/>
-                    <line x1="130" y1="188" x2="131" y2="183" stroke="#5D3A1A" stroke-width="1.5" stroke-linecap="round"/>
-                </g>
-                <g class="tree-apple">
-                    <circle cx="260" cy="200" r="7" fill="url(#appleGrad)"/>
-                    <line x1="260" y1="193" x2="261" y2="188" stroke="#5D3A1A" stroke-width="1.5" stroke-linecap="round"/>
-                </g>
-                <g class="tree-apple">
-                    <circle cx="190" cy="140" r="6" fill="url(#appleGrad)"/>
-                    <line x1="190" y1="134" x2="191" y2="130" stroke="#5D3A1A" stroke-width="1.5" stroke-linecap="round"/>
-                </g>
-                <g class="tree-apple">
-                    <circle cx="300" cy="240" r="6" fill="url(#appleGrad)"/>
-                    <line x1="300" y1="234" x2="301" y2="230" stroke="#5D3A1A" stroke-width="1.5" stroke-linecap="round"/>
-                </g>
-                <g class="tree-apple">
-                    <circle cx="95" cy="240" r="7" fill="url(#appleGrad)"/>
-                    <line x1="95" y1="233" x2="96" y2="228" stroke="#5D3A1A" stroke-width="1.5" stroke-linecap="round"/>
-                </g>
-
-                <defs>
-                    <radialGradient id="appleGrad" cx="35%" cy="35%">
-                        <stop offset="0%" stop-color="#ff5555"/>
-                        <stop offset="60%" stop-color="#cc0000"/>
-                        <stop offset="100%" stop-color="#8b0000"/>
-                    </radialGradient>
-                </defs>
-            </svg>
-
-            <!-- Falling apple -->
-            <div class="falling-apple-wrap">
-                <svg viewBox="0 0 20 22" width="20" height="22">
-                    <line x1="10" y1="2" x2="11" y2="0" stroke="#5D3A1A" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M11 2 Q14 1 15 3" fill="#4CAF50" stroke="none"/>
-                    <circle cx="10" cy="10" r="8" fill="url(#appleGradFall)"/>
-                    <defs>
-                        <radialGradient id="appleGradFall" cx="35%" cy="35%">
-                            <stop offset="0%" stop-color="#ff5555"/>
-                            <stop offset="60%" stop-color="#cc0000"/>
-                            <stop offset="100%" stop-color="#8b0000"/>
-                        </radialGradient>
-                    </defs>
-                </svg>
+        <!-- Library wall background -->
+        <div class="library-wall">
+            <!-- Bookshelves -->
+            <div class="bookshelf shelf-left">
+                <div class="shelf-board"></div>
+                <div class="books-row">
+                    <div class="book-spine" style="--h:85px;--c:#6B1C23;--w:14px"></div>
+                    <div class="book-spine" style="--h:92px;--c:#2C1810;--w:18px"></div>
+                    <div class="book-spine" style="--h:78px;--c:#4A3728;--w:12px"></div>
+                    <div class="book-spine" style="--h:88px;--c:#1B3A2D;--w:16px"></div>
+                    <div class="book-spine" style="--h:95px;--c:#3D1F0B;--w:20px"></div>
+                    <div class="book-spine" style="--h:82px;--c:#5C3A1E;--w:13px"></div>
+                    <div class="book-spine" style="--h:90px;--c:#2A1A3E;--w:17px"></div>
+                    <div class="book-spine" style="--h:76px;--c:#6B4423;--w:11px"></div>
+                    <div class="book-spine" style="--h:94px;--c:#1F2D1B;--w:15px"></div>
+                    <div class="book-spine" style="--h:86px;--c:#4A1A1A;--w:19px"></div>
+                </div>
+                <div class="shelf-board"></div>
+                <div class="books-row">
+                    <div class="book-spine" style="--h:80px;--c:#3D2B1F;--w:16px"></div>
+                    <div class="book-spine" style="--h:90px;--c:#5A1A1A;--w:14px"></div>
+                    <div class="book-spine tilted" style="--h:88px;--c:#2B3D1F;--w:18px"></div>
+                    <div class="book-spine" style="--h:75px;--c:#4A2E14;--w:12px"></div>
+                    <div class="book-spine" style="--h:92px;--c:#1A2A3D;--w:20px"></div>
+                    <div class="book-spine" style="--h:84px;--c:#6B3410;--w:15px"></div>
+                    <div class="book-spine" style="--h:88px;--c:#3A1F2B;--w:13px"></div>
+                    <div class="book-spine" style="--h:78px;--c:#2D1B00;--w:17px"></div>
+                    <div class="book-spine" style="--h:91px;--c:#4A3020;--w:14px"></div>
+                </div>
+                <div class="shelf-board"></div>
+                <div class="books-row">
+                    <div class="book-spine" style="--h:82px;--c:#5C2E14;--w:15px"></div>
+                    <div class="book-spine" style="--h:93px;--c:#1A1A3D;--w:19px"></div>
+                    <div class="book-spine" style="--h:77px;--c:#3D1F00;--w:13px"></div>
+                    <div class="book-spine" style="--h:88px;--c:#2E4A14;--w:16px"></div>
+                    <div class="book-spine" style="--h:85px;--c:#6B1A2E;--w:12px"></div>
+                    <div class="book-spine" style="--h:90px;--c:#3A2B1F;--w:18px"></div>
+                    <div class="book-spine" style="--h:79px;--c:#1B2D3A;--w:14px"></div>
+                    <div class="book-spine" style="--h:87px;--c:#5A3A1A;--w:17px"></div>
+                    <div class="book-spine" style="--h:92px;--c:#2D1B2E;--w:20px"></div>
+                    <div class="book-spine" style="--h:81px;--c:#4A2314;--w:11px"></div>
+                </div>
+                <div class="shelf-board"></div>
             </div>
 
-            <!-- Newton leaning back against tree (back rests on trunk to his right) -->
-            <svg class="newton-svg" viewBox="0 0 220 210" width="220" height="210">
+            <div class="bookshelf shelf-right">
+                <div class="shelf-board"></div>
+                <div class="books-row">
+                    <div class="book-spine" style="--h:88px;--c:#3D1F2B;--w:16px"></div>
+                    <div class="book-spine" style="--h:82px;--c:#1A3D2B;--w:14px"></div>
+                    <div class="book-spine" style="--h:95px;--c:#5A2E14;--w:19px"></div>
+                    <div class="book-spine" style="--h:79px;--c:#2B1A3D;--w:13px"></div>
+                    <div class="book-spine" style="--h:91px;--c:#6B3A10;--w:17px"></div>
+                    <div class="book-spine" style="--h:84px;--c:#3A1F0B;--w:15px"></div>
+                    <div class="book-spine" style="--h:90px;--c:#1F2B3D;--w:18px"></div>
+                    <div class="book-spine" style="--h:76px;--c:#5C1A23;--w:12px"></div>
+                    <div class="book-spine" style="--h:87px;--c:#4A3728;--w:20px"></div>
+                </div>
+                <div class="shelf-board"></div>
+                <div class="books-row">
+                    <div class="book-spine" style="--h:85px;--c:#2D3A1B;--w:15px"></div>
+                    <div class="book-spine" style="--h:92px;--c:#6B1C10;--w:18px"></div>
+                    <div class="book-spine" style="--h:78px;--c:#1A2B3D;--w:13px"></div>
+                    <div class="book-spine tilted" style="--h:90px;--c:#4A1F2E;--w:17px"></div>
+                    <div class="book-spine" style="--h:83px;--c:#3D2B00;--w:14px"></div>
+                    <div class="book-spine" style="--h:89px;--c:#5A1A3A;--w:19px"></div>
+                    <div class="book-spine" style="--h:77px;--c:#2E4A28;--w:12px"></div>
+                    <div class="book-spine" style="--h:94px;--c:#3A1B2D;--w:16px"></div>
+                </div>
+                <div class="shelf-board"></div>
+                <div class="books-row">
+                    <div class="book-spine" style="--h:90px;--c:#4A2E00;--w:17px"></div>
+                    <div class="book-spine" style="--h:80px;--c:#1B3D2E;--w:14px"></div>
+                    <div class="book-spine" style="--h:93px;--c:#6B2314;--w:18px"></div>
+                    <div class="book-spine" style="--h:78px;--c:#2B1F3D;--w:13px"></div>
+                    <div class="book-spine" style="--h:86px;--c:#5A3A28;--w:16px"></div>
+                    <div class="book-spine" style="--h:91px;--c:#3D0B1F;--w:20px"></div>
+                    <div class="book-spine" style="--h:82px;--c:#2E3A1B;--w:15px"></div>
+                    <div class="book-spine" style="--h:88px;--c:#4A1A2B;--w:12px"></div>
+                    <div class="book-spine" style="--h:79px;--c:#1F2D00;--w:19px"></div>
+                </div>
+                <div class="shelf-board"></div>
+            </div>
+        </div>
+
+        <!-- Desk -->
+        <div class="desk">
+            <div class="desk-surface"></div>
+            <div class="desk-front"></div>
+            <div class="desk-edge"></div>
+            <!-- Wood grain lines -->
+            <svg class="wood-grain" viewBox="0 0 800 40" preserveAspectRatio="none">
+                <path d="M0 8 Q200 12 400 7 Q600 3 800 9" stroke="rgba(90,50,20,0.15)" stroke-width="1" fill="none"/>
+                <path d="M0 18 Q150 22 350 16 Q550 20 800 17" stroke="rgba(90,50,20,0.12)" stroke-width="1" fill="none"/>
+                <path d="M0 28 Q250 32 500 26 Q700 30 800 27" stroke="rgba(90,50,20,0.1)" stroke-width="1" fill="none"/>
+            </svg>
+        </div>
+
+        <!-- The Book -->
+        <div class="main-book">
+            <!-- Book shadow -->
+            <div class="book-shadow"></div>
+
+            <svg class="book-svg" viewBox="0 0 420 320" width="420" height="320">
                 <defs>
-                    <!-- Skin shading -->
-                    <radialGradient id="skinGrad" cx="45%" cy="40%">
-                        <stop offset="0%" stop-color="#F2D4B0"/>
-                        <stop offset="70%" stop-color="#E8C39E"/>
-                        <stop offset="100%" stop-color="#D4A87C"/>
-                    </radialGradient>
-                    <!-- Coat fabric gradient -->
-                    <linearGradient id="coatGrad" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stop-color="#8B4513"/>
-                        <stop offset="50%" stop-color="#7B3F10"/>
-                        <stop offset="100%" stop-color="#6B3410"/>
+                    <!-- Leather cover gradient -->
+                    <linearGradient id="leatherGrad" x1="0" y1="0" x2="0.3" y2="1">
+                        <stop offset="0%" stop-color="#5A2D0C"/>
+                        <stop offset="30%" stop-color="#4A2308"/>
+                        <stop offset="60%" stop-color="#3D1C06"/>
+                        <stop offset="100%" stop-color="#2E1504"/>
                     </linearGradient>
-                    <!-- Coat highlight -->
-                    <linearGradient id="coatHighlight" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#9B5523" stop-opacity="0.5"/>
-                        <stop offset="100%" stop-color="#6B3410" stop-opacity="0"/>
+                    <linearGradient id="leatherLight" x1="0.3" y1="0" x2="0.7" y2="1">
+                        <stop offset="0%" stop-color="#7A4420" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="#2E1504" stop-opacity="0"/>
                     </linearGradient>
+                    <!-- Page gradient -->
+                    <linearGradient id="pageGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#F5ECD7"/>
+                        <stop offset="50%" stop-color="#EDE2C8"/>
+                        <stop offset="100%" stop-color="#E5D9B8"/>
+                    </linearGradient>
+                    <!-- Gold foil -->
+                    <linearGradient id="goldFoil" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#D4A017"/>
+                        <stop offset="30%" stop-color="#C5961A"/>
+                        <stop offset="50%" stop-color="#E8C252"/>
+                        <stop offset="70%" stop-color="#C5961A"/>
+                        <stop offset="100%" stop-color="#A07818"/>
+                    </linearGradient>
+                    <!-- Lamp glow on book -->
+                    <radialGradient id="lampGlow" cx="50%" cy="30%" r="60%">
+                        <stop offset="0%" stop-color="#FFE0A0" stop-opacity="0.25"/>
+                        <stop offset="60%" stop-color="#FFD080" stop-opacity="0.08"/>
+                        <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                    </radialGradient>
                 </defs>
 
-                <!-- Shadow on ground -->
-                <ellipse cx="85" cy="202" rx="80" ry="10" fill="rgba(0,0,0,0.1)"/>
+                <!-- Book cover base -->
+                <rect x="10" y="15" width="400" height="290" rx="4" fill="url(#leatherGrad)" stroke="#1A0A02" stroke-width="2"/>
+                <!-- Leather highlight -->
+                <rect x="10" y="15" width="400" height="290" rx="4" fill="url(#leatherLight)"/>
 
-                <!-- === LEGS (stretched out to the left, relaxed) === -->
-                <!-- Left breeches -->
-                <path d="M78 172 Q60 174 38 178 Q22 181 10 184"
-                      stroke="#3D2B1F" stroke-width="12" fill="none" stroke-linecap="round"/>
-                <!-- Right breeches (crossed slightly over) -->
-                <path d="M88 175 Q68 179 48 185 Q32 190 22 192"
-                      stroke="#3D2B1F" stroke-width="11" fill="none" stroke-linecap="round"/>
-                <!-- Knee buckles -->
-                <ellipse cx="38" cy="178" rx="3" ry="2" fill="#DAA520" opacity="0.7"/>
-                <ellipse cx="48" cy="185" rx="3" ry="2" fill="#DAA520" opacity="0.7"/>
-                <!-- Stockings (white, period-appropriate) -->
-                <path d="M10 184 Q4 186 2 188" stroke="#E8E0D8" stroke-width="9" fill="none" stroke-linecap="round"/>
-                <path d="M22 192 Q16 194 14 196" stroke="#E8E0D8" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <!-- Left shoe with buckle -->
-                <path d="M2 188 Q-4 186 -6 189 Q-5 194 2 193 Q6 192 8 190 Z" fill="#1a0f08"/>
-                <rect x="-2" y="189" width="5" height="3" rx="0.5" fill="#DAA520" opacity="0.8"/>
-                <!-- Right shoe with buckle -->
-                <path d="M14 196 Q8 194 6 197 Q7 202 14 201 Q18 200 20 198 Z" fill="#1a0f08"/>
-                <rect x="10" y="197" width="5" height="3" rx="0.5" fill="#DAA520" opacity="0.8"/>
+                <!-- Leather texture (subtle bumps) -->
+                <filter id="leatherNoise">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise"/>
+                    <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+                    <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply"/>
+                </filter>
+                <rect x="10" y="15" width="400" height="290" rx="4" fill="rgba(60,30,10,0.08)" filter="url(#leatherNoise)"/>
 
-                <!-- === BODY (frock coat, leaning back ~25deg) === -->
-                <!-- Coat back panel -->
-                <path d="M72 175 Q88 148 98 125 Q104 110 108 100
-                         L128 100 Q124 110 120 125 Q112 148 98 175 Z"
-                      fill="url(#coatGrad)"/>
-                <!-- Coat highlight stripe -->
-                <path d="M85 170 Q95 145 103 122 Q107 112 110 104"
-                      stroke="url(#coatHighlight)" stroke-width="6" fill="none" opacity="0.4"/>
-                <!-- Coat left edge seam -->
-                <path d="M72 175 Q88 148 98 125 Q104 110 108 100"
-                      stroke="#5A2D0C" stroke-width="1.5" fill="none"/>
-                <!-- Coat right edge seam -->
-                <path d="M98 175 Q112 148 120 125 Q124 110 128 100"
-                      stroke="#5A2D0C" stroke-width="1.5" fill="none"/>
-                <!-- Coat tails (draping behind) -->
-                <path d="M95 175 Q100 182 98 190" stroke="#6B3410" stroke-width="5" fill="none" opacity="0.6" stroke-linecap="round"/>
-                <path d="M90 175 Q88 185 90 193" stroke="#6B3410" stroke-width="4" fill="none" opacity="0.5" stroke-linecap="round"/>
+                <!-- Spine -->
+                <rect x="10" y="15" width="30" height="290" rx="3" fill="#2E1504"/>
+                <line x1="15" y1="20" x2="15" y2="300" stroke="#4A2308" stroke-width="0.5" opacity="0.5"/>
+                <line x1="25" y1="20" x2="25" y2="300" stroke="#4A2308" stroke-width="0.5" opacity="0.5"/>
+                <!-- Spine raised bands -->
+                <rect x="10" y="55" width="30" height="6" rx="2" fill="#3D1C06" stroke="#2E1504" stroke-width="0.5"/>
+                <rect x="10" y="110" width="30" height="6" rx="2" fill="#3D1C06" stroke="#2E1504" stroke-width="0.5"/>
+                <rect x="10" y="180" width="30" height="6" rx="2" fill="#3D1C06" stroke="#2E1504" stroke-width="0.5"/>
+                <rect x="10" y="245" width="30" height="6" rx="2" fill="#3D1C06" stroke="#2E1504" stroke-width="0.5"/>
 
-                <!-- Vest / waistcoat -->
-                <path d="M92 160 Q100 140 106 122 Q110 114 112 108
-                         L122 108 Q120 114 116 122 Q110 140 102 160 Z"
-                      fill="#C8960F" opacity="0.7"/>
-                <!-- Vest buttons -->
-                <circle cx="107" cy="120" r="1.5" fill="#DAA520"/>
-                <circle cx="105" cy="130" r="1.5" fill="#DAA520"/>
-                <circle cx="103" cy="140" r="1.5" fill="#DAA520"/>
-                <circle cx="100" cy="150" r="1.5" fill="#DAA520"/>
-                <!-- Vest edge trim -->
-                <path d="M92 160 Q100 140 106 122 Q110 114 112 108"
-                      stroke="#B8860B" stroke-width="0.8" fill="none"/>
+                <!-- Page edges (visible from front) -->
+                <rect x="42" y="22" width="360" height="276" rx="2" fill="url(#pageGrad)" stroke="#C8B898" stroke-width="0.5"/>
+                <!-- Individual page line hints -->
+                <line x1="42" y1="25" x2="402" y2="25" stroke="#D8CDB0" stroke-width="0.3"/>
+                <line x1="42" y1="28" x2="402" y2="28" stroke="#D8CDB0" stroke-width="0.3"/>
+                <line x1="42" y1="293" x2="402" y2="293" stroke="#D8CDB0" stroke-width="0.3"/>
+                <line x1="42" y1="295" x2="402" y2="295" stroke="#D8CDB0" stroke-width="0.3"/>
 
-                <!-- White shirt visible at chest -->
-                <path d="M110 105 Q115 108 120 105" fill="white" opacity="0.6"/>
+                <!-- Cover recessed panel (embossed border) -->
+                <rect x="55" y="35" width="340" height="250" rx="3" fill="none" stroke="url(#goldFoil)" stroke-width="2.5"/>
+                <!-- Inner border -->
+                <rect x="65" y="45" width="320" height="230" rx="2" fill="none" stroke="url(#goldFoil)" stroke-width="1"/>
 
-                <!-- Cravat (lace neck cloth) -->
-                <path d="M108 100 Q115 108 122 100" stroke="white" stroke-width="3" fill="none"/>
-                <path d="M113 103 Q115 108 113 114" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <path d="M117 103 Q115 108 117 114" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <!-- Lace detail on cravat -->
-                <path d="M111 112 Q115 116 119 112" stroke="#E8E0D8" stroke-width="1" fill="none"/>
-                <circle cx="115" cy="114" r="1" fill="white" opacity="0.5"/>
-
-                <!-- Coat buttons (front) -->
-                <circle cx="109" cy="110" r="1.2" fill="#DAA520" opacity="0.6"/>
-                <circle cx="108" cy="118" r="1.2" fill="#DAA520" opacity="0.6"/>
-
-                <!-- === LEFT ARM (resting on lap, holding open book) === -->
-                <!-- Upper arm -->
-                <path d="M100 125 Q88 138 78 150"
-                      stroke="#7B3F10" stroke-width="9" fill="none" stroke-linecap="round"/>
-                <!-- Forearm -->
-                <path d="M78 150 Q70 157 64 162"
-                      stroke="#7B3F10" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <!-- Shirt cuff peeking out -->
-                <path d="M66 160 Q63 162 62 164" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
-                <!-- Hand with fingers -->
-                <path d="M62 164 Q58 162 56 164 Q55 167 58 168 Q60 168 62 166"
-                      fill="url(#skinGrad)" stroke="#D4A87C" stroke-width="0.5"/>
-                <path d="M62 166 Q60 170 58 170" stroke="#D4A87C" stroke-width="0.8" fill="none"/>
-
-                <!-- Open book on lap -->
-                <g transform="rotate(-10 62 168)">
-                    <!-- Book cover -->
-                    <rect x="46" y="158" width="28" height="20" rx="2" fill="#6B0000"/>
-                    <!-- Book spine -->
-                    <line x1="60" y1="158" x2="60" y2="178" stroke="#4A0000" stroke-width="1.5"/>
-                    <!-- Left page -->
-                    <rect x="48" y="160" width="11" height="16" rx="1" fill="#F5F0E0"/>
-                    <!-- Right page -->
-                    <rect x="61" y="160" width="11" height="16" rx="1" fill="#F5F0E0"/>
-                    <!-- Text lines on pages -->
-                    <line x1="50" y1="164" x2="57" y2="164" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
-                    <line x1="50" y1="167" x2="56" y2="167" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
-                    <line x1="50" y1="170" x2="57" y2="170" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
-                    <line x1="63" y1="164" x2="70" y2="164" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
-                    <line x1="63" y1="167" x2="69" y2="167" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
-                    <line x1="63" y1="170" x2="70" y2="170" stroke="#8B7355" stroke-width="0.4" opacity="0.5"/>
-                    <!-- Gold edge on book cover -->
-                    <rect x="46" y="158" width="28" height="20" rx="2" fill="none" stroke="#DAA520" stroke-width="0.5"/>
+                <!-- Corner ornaments (gold filigree) -->
+                <!-- Top-left -->
+                <g class="corner-ornament" transform="translate(65,45)">
+                    <path d="M0 25 Q5 20 10 25 Q8 15 15 10 Q10 5 15 0" stroke="url(#goldFoil)" stroke-width="1.2" fill="none"/>
+                    <path d="M0 15 Q8 10 15 15" stroke="url(#goldFoil)" stroke-width="0.8" fill="none"/>
+                    <circle cx="5" cy="5" r="2" fill="url(#goldFoil)" opacity="0.6"/>
+                </g>
+                <!-- Top-right -->
+                <g class="corner-ornament" transform="translate(385,45) scale(-1,1)">
+                    <path d="M0 25 Q5 20 10 25 Q8 15 15 10 Q10 5 15 0" stroke="url(#goldFoil)" stroke-width="1.2" fill="none"/>
+                    <path d="M0 15 Q8 10 15 15" stroke="url(#goldFoil)" stroke-width="0.8" fill="none"/>
+                    <circle cx="5" cy="5" r="2" fill="url(#goldFoil)" opacity="0.6"/>
+                </g>
+                <!-- Bottom-left -->
+                <g class="corner-ornament" transform="translate(65,275) scale(1,-1)">
+                    <path d="M0 25 Q5 20 10 25 Q8 15 15 10 Q10 5 15 0" stroke="url(#goldFoil)" stroke-width="1.2" fill="none"/>
+                    <path d="M0 15 Q8 10 15 15" stroke="url(#goldFoil)" stroke-width="0.8" fill="none"/>
+                    <circle cx="5" cy="5" r="2" fill="url(#goldFoil)" opacity="0.6"/>
+                </g>
+                <!-- Bottom-right -->
+                <g class="corner-ornament" transform="translate(385,275) scale(-1,-1)">
+                    <path d="M0 25 Q5 20 10 25 Q8 15 15 10 Q10 5 15 0" stroke="url(#goldFoil)" stroke-width="1.2" fill="none"/>
+                    <path d="M0 15 Q8 10 15 15" stroke="url(#goldFoil)" stroke-width="0.8" fill="none"/>
+                    <circle cx="5" cy="5" r="2" fill="url(#goldFoil)" opacity="0.6"/>
                 </g>
 
-                <!-- === RIGHT ARM (relaxed at side, palm on grass) === -->
-                <!-- Upper arm -->
-                <path d="M122 118 Q132 132 138 148"
-                      stroke="#7B3F10" stroke-width="9" fill="none" stroke-linecap="round"/>
-                <!-- Forearm -->
-                <path d="M138 148 Q142 160 140 172"
-                      stroke="#7B3F10" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <!-- Shirt cuff -->
-                <path d="M141 168 Q140 172 139 174" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
-                <!-- Hand flat on ground with finger hints -->
-                <path d="M136 176 Q132 174 130 176 Q129 179 132 180 Q136 180 140 178 Q143 176 142 174 Z"
-                      fill="url(#skinGrad)" stroke="#D4A87C" stroke-width="0.5"/>
-                <path d="M133 177 Q131 178 131 176" stroke="#D4A87C" stroke-width="0.5" fill="none"/>
-                <path d="M136 177 Q135 179 134 178" stroke="#D4A87C" stroke-width="0.5" fill="none"/>
+                <!-- Central ornamental divider above title -->
+                <path d="M140 90 Q160 82 180 88 Q200 78 220 88 Q240 82 260 90" stroke="url(#goldFoil)" stroke-width="1.2" fill="none"/>
+                <circle cx="200" cy="82" r="3" fill="url(#goldFoil)"/>
 
-                <!-- === NECK === -->
-                <path d="M112 88 Q115 94 118 88" fill="url(#skinGrad)"/>
-                <rect x="110" y="84" width="12" height="14" rx="4" fill="url(#skinGrad)"/>
-                <!-- Neck shadow -->
-                <path d="M111 92 Q116 96 121 92" stroke="#D4A87C" stroke-width="1" fill="none" opacity="0.3"/>
+                <!-- === TITLE === -->
+                <text x="210" y="130" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-weight="700" font-size="19" fill="url(#goldFoil)" class="book-title-line">The Essence</text>
+                <text x="210" y="160" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-weight="700" font-size="16" fill="url(#goldFoil)" class="book-title-line" style="--i:1">of</text>
+                <text x="210" y="195" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-weight="900" font-size="24" fill="url(#goldFoil)" class="book-title-line" style="--i:2">Science</text>
 
-                <!-- === HEAD (tilted back, resting against trunk) === -->
-                <g transform="rotate(12 118 68)">
-                    <!-- Head shape -->
-                    <ellipse cx="118" cy="68" rx="20" ry="24" fill="url(#skinGrad)"/>
-                    <!-- Jawline definition -->
-                    <path d="M100 72 Q105 85 118 88 Q131 85 136 72" stroke="#D4A87C" stroke-width="0.8" fill="none" opacity="0.3"/>
-                    <!-- Ear left -->
-                    <ellipse cx="98" cy="68" rx="4" ry="6" fill="#E8C39E"/>
-                    <ellipse cx="98" cy="68" rx="2.5" ry="4" fill="#DDB892" opacity="0.5"/>
-                    <!-- Ear right (partially hidden by wig) -->
-                    <ellipse cx="138" cy="66" rx="3.5" ry="5" fill="#E8C39E"/>
+                <!-- Divider below title -->
+                <path d="M130 215 L270 215" stroke="url(#goldFoil)" stroke-width="1"/>
+                <path d="M150 220 L250 220" stroke="url(#goldFoil)" stroke-width="0.6" opacity="0.6"/>
+                <!-- Small diamond -->
+                <polygon points="200,210 205,215 200,220 195,215" fill="url(#goldFoil)" opacity="0.8"/>
 
-                    <!-- === WIG === -->
-                    <!-- Main wig volume -->
-                    <path d="M97 70 Q94 50 99 38 Q104 28 118 24 Q132 28 137 38 Q142 50 139 70"
-                          fill="#D8D8D8"/>
-                    <!-- Wig top volume -->
-                    <path d="M100 45 Q105 22 118 20 Q131 22 136 45"
-                          fill="#E0E0E0"/>
-                    <!-- Part line -->
-                    <path d="M118 22 Q118 30 117 40" stroke="#C0C0C0" stroke-width="0.8" fill="none"/>
-                    <!-- Wig wave texture -->
-                    <path d="M100 40 Q105 37 108 40 Q111 43 114 40" stroke="#C8C8C8" stroke-width="1" fill="none" opacity="0.6"/>
-                    <path d="M122 38 Q125 35 128 38 Q131 41 134 38" stroke="#C8C8C8" stroke-width="1" fill="none" opacity="0.6"/>
-                    <path d="M98 52 Q102 49 106 52" stroke="#C8C8C8" stroke-width="0.8" fill="none" opacity="0.5"/>
-                    <path d="M130 50 Q134 47 138 50" stroke="#C8C8C8" stroke-width="0.8" fill="none" opacity="0.5"/>
+                <!-- Subtitle / author area -->
+                <text x="210" y="248" text-anchor="middle" font-family="'EB Garamond', serif" font-style="italic" font-size="11" fill="url(#goldFoil)" opacity="0.6">Volume I</text>
 
-                    <!-- Wig curls left (cascading ringlets) -->
-                    <path d="M96 58 Q89 63 91 72" stroke="#D0D0D0" stroke-width="4" fill="none" stroke-linecap="round"/>
-                    <path d="M91 72 Q87 77 90 84" stroke="#C8C8C8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                    <path d="M90 84 Q87 89 90 94" stroke="#C0C0C0" stroke-width="3" fill="none" stroke-linecap="round"/>
-                    <!-- Inner curl detail -->
-                    <path d="M97 62 Q92 67 94 74" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
-                    <path d="M93 76 Q90 81 92 87" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Bottom ornament -->
+                <path d="M170 260 Q185 255 200 262 Q215 255 230 260" stroke="url(#goldFoil)" stroke-width="1" fill="none" opacity="0.6"/>
 
-                    <!-- Wig curls right (cascading ringlets) -->
-                    <path d="M140 56 Q147 61 145 70" stroke="#D0D0D0" stroke-width="4" fill="none" stroke-linecap="round"/>
-                    <path d="M145 70 Q149 75 146 82" stroke="#C8C8C8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                    <path d="M146 82 Q149 87 146 92" stroke="#C0C0C0" stroke-width="3" fill="none" stroke-linecap="round"/>
-                    <!-- Inner curl detail -->
-                    <path d="M139 60 Q144 65 142 72" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
-                    <path d="M143 74 Q146 79 144 85" stroke="#BCBCBC" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Lamp glow overlay on book -->
+                <rect x="10" y="15" width="400" height="290" rx="4" fill="url(#lampGlow)"/>
 
-                    <!-- === FACE === -->
-                    <!-- Eyes -->
-                    <ellipse cx="110" cy="63" rx="4.5" ry="5" fill="white"/>
-                    <ellipse cx="126" cy="61" rx="4.5" ry="5" fill="white"/>
-                    <!-- Iris -->
-                    <circle cx="110" cy="61" r="2.8" fill="#4A6741"/>
-                    <circle cx="126" cy="59" r="2.8" fill="#4A6741"/>
-                    <!-- Pupil -->
-                    <circle cx="110" cy="60.5" r="1.5" fill="#1a1a1a"/>
-                    <circle cx="126" cy="58.5" r="1.5" fill="#1a1a1a"/>
-                    <!-- Eye highlights -->
-                    <circle cx="111.2" cy="59.8" r="0.8" fill="white"/>
-                    <circle cx="127.2" cy="57.8" r="0.8" fill="white"/>
-                    <!-- Eyelids (upper) -->
-                    <path d="M105 60 Q110 57 115 60" stroke="#9B8265" stroke-width="1.2" fill="none"/>
-                    <path d="M121 58 Q126 55 131 58" stroke="#9B8265" stroke-width="1.2" fill="none"/>
-                    <!-- Lower lash line -->
-                    <path d="M106 66 Q110 68 114 66" stroke="#C4A882" stroke-width="0.5" fill="none" opacity="0.4"/>
-                    <path d="M122 64 Q126 66 130 64" stroke="#C4A882" stroke-width="0.5" fill="none" opacity="0.4"/>
-                    <!-- Eyelashes (subtle) -->
-                    <path d="M105 60 Q104 58 105 57" stroke="#8B7355" stroke-width="0.5" fill="none"/>
-                    <path d="M121 58 Q120 56 121 55" stroke="#8B7355" stroke-width="0.5" fill="none"/>
-
-                    <!-- Eyebrows (expressive, slightly raised in thought) -->
-                    <path d="M104 55 Q110 51 116 55" stroke="#8B7355" stroke-width="1.8" fill="none"/>
-                    <path d="M120 53 Q126 49 132 53" stroke="#8B7355" stroke-width="1.8" fill="none"/>
-
-                    <!-- Nose (more defined) -->
-                    <path d="M118 58 Q116 64 114 68 Q113 70 116 71 Q118 72 120 71 Q122 70 121 68"
-                          stroke="#D4A574" stroke-width="1.2" fill="none"/>
-                    <!-- Nostril hint -->
-                    <path d="M116 70 Q117 71 118 70" stroke="#C49A6C" stroke-width="0.6" fill="none"/>
-
-                    <!-- Mouth -->
-                    <path d="M112 77 Q118 81 124 77" stroke="#C4956A" stroke-width="1.3" fill="none"/>
-                    <!-- Upper lip -->
-                    <path d="M112 77 Q115 75 118 76 Q121 75 124 77" stroke="#C4956A" stroke-width="0.8" fill="none"/>
-                    <!-- Lower lip highlight -->
-                    <path d="M114 79 Q118 82 122 79" fill="#D4A07A" opacity="0.3"/>
-
-                    <!-- Cheek blush -->
-                    <ellipse cx="105" cy="72" rx="5" ry="3" fill="#E8A090" opacity="0.2"/>
-                    <ellipse cx="131" cy="70" rx="5" ry="3" fill="#E8A090" opacity="0.2"/>
-
-                    <!-- Chin dimple -->
-                    <path d="M117 84 Q118 85 119 84" stroke="#D4A87C" stroke-width="0.5" fill="none" opacity="0.4"/>
-
-                    <!-- Forehead crease (thoughtful) -->
-                    <path d="M108 50 Q118 48 128 50" stroke="#D4A87C" stroke-width="0.4" fill="none" opacity="0.25"/>
-                </g>
+                <!-- Wear marks on cover -->
+                <path d="M60 40 Q65 38 70 40" stroke="#6B3A18" stroke-width="0.4" fill="none" opacity="0.3"/>
+                <path d="M350 280 Q360 278 370 280" stroke="#6B3A18" stroke-width="0.4" fill="none" opacity="0.3"/>
+                <circle cx="380" cy="50" r="8" fill="rgba(90,50,20,0.06)"/>
             </svg>
 
-            <!-- Thought bubble -->
-            <div class="thought-bubble">
-                <span class="thought-text">F = G(m₁m₂)/r²</span>
+            <!-- Mystical glow emanating from the book -->
+            <div class="book-aura"></div>
+        </div>
+
+        <!-- Oil lamp -->
+        <div class="lamp">
+            <svg class="lamp-svg" viewBox="0 0 100 200" width="100" height="200">
+                <!-- Lamp base -->
+                <ellipse cx="50" cy="190" rx="30" ry="8" fill="#8B6914"/>
+                <ellipse cx="50" cy="188" rx="28" ry="7" fill="#A07818"/>
+                <path d="M22 188 L26 170 L74 170 L78 188" fill="#8B6914" stroke="#6B5010" stroke-width="0.5"/>
+                <!-- Base detail ring -->
+                <ellipse cx="50" cy="170" rx="24" ry="6" fill="#A07818" stroke="#8B6914" stroke-width="0.5"/>
+
+                <!-- Lamp stem -->
+                <rect x="44" y="120" width="12" height="50" rx="3" fill="#A07818"/>
+                <rect x="46" y="122" width="2" height="46" fill="#C8A030" opacity="0.3"/>
+
+                <!-- Oil reservoir -->
+                <path d="M30 120 Q28 108 32 100 Q38 92 50 90 Q62 92 68 100 Q72 108 70 120 Z"
+                      fill="#A07818" stroke="#8B6914" stroke-width="1"/>
+                <path d="M35 115 Q34 108 37 103 Q42 97 50 96 Q58 97 63 103 Q66 108 65 115"
+                      fill="#B89028" opacity="0.4"/>
+
+                <!-- Wick holder -->
+                <rect x="46" y="82" width="8" height="12" rx="2" fill="#8B6914"/>
+
+                <!-- Wick -->
+                <rect x="48" y="72" width="4" height="14" rx="1" fill="#2C1810"/>
+
+                <!-- Glass chimney -->
+                <path d="M36 85 Q32 60 38 35 Q42 20 50 15 Q58 20 62 35 Q68 60 64 85"
+                      fill="rgba(255,240,200,0.06)" stroke="rgba(200,180,140,0.2)" stroke-width="1"/>
+                <path d="M38 80 Q35 60 40 40 Q44 25 50 20"
+                      stroke="rgba(255,240,200,0.1)" stroke-width="0.5" fill="none"/>
+            </svg>
+
+            <!-- Flame -->
+            <div class="flame-container">
+                <div class="flame">
+                    <div class="flame-inner"></div>
+                </div>
             </div>
-            <div class="thought-dot dot-1"></div>
-            <div class="thought-dot dot-2"></div>
-            <div class="thought-dot dot-3"></div>
+
+            <!-- Lamp light cone -->
+            <div class="light-cone"></div>
         </div>
 
-        <!-- Grass blade SVGs along ground line -->
-        <svg class="grass-blades" viewBox="0 0 1920 120" preserveAspectRatio="none">
-            <defs>
-                <linearGradient id="grassGrad1" x1="0" y1="1" x2="0" y2="0">
-                    <stop offset="0%" stop-color="#2d5a1e"/>
-                    <stop offset="100%" stop-color="#4a8c2a"/>
-                </linearGradient>
-            </defs>
-        </svg>
+        <!-- Warm light overlay (from lamp) -->
+        <div class="lamp-light"></div>
 
-        <!-- Floating particles -->
-        <div class="particle p-1"></div>
-        <div class="particle p-2"></div>
-        <div class="particle p-3"></div>
-        <div class="particle p-4"></div>
-        <div class="particle p-5"></div>
-        <div class="particle p-6"></div>
-        <div class="particle p-7"></div>
-        <div class="particle p-8"></div>
+        <!-- Dust motes floating in lamplight -->
+        <div class="dust-container" id="dustContainer"></div>
 
-        <!-- Butterflies -->
-        <div class="butterfly bf-1">
-            <svg viewBox="0 0 40 30" width="40" height="30">
-                <g class="bf-wings">
-                    <path d="M20 15 Q10 5 5 10 Q0 15 10 18 Z" fill="#FF6B9D" opacity="0.8"/>
-                    <path d="M20 15 Q30 5 35 10 Q40 15 30 18 Z" fill="#FF6B9D" opacity="0.8"/>
-                    <path d="M20 15 Q12 20 8 22 Q10 25 18 20 Z" fill="#FF8FB1" opacity="0.7"/>
-                    <path d="M20 15 Q28 20 32 22 Q30 25 22 20 Z" fill="#FF8FB1" opacity="0.7"/>
-                </g>
-                <line x1="18" y1="10" x2="15" y2="5" stroke="#333" stroke-width="0.5"/>
-                <line x1="22" y1="10" x2="25" y2="5" stroke="#333" stroke-width="0.5"/>
-                <ellipse cx="20" cy="15" rx="1.5" ry="5" fill="#333"/>
+        <!-- Scattered items on desk -->
+        <div class="desk-items">
+            <!-- Quill pen -->
+            <svg class="quill" viewBox="0 0 60 120" width="40" height="80">
+                <path d="M30 120 L28 60 Q25 40 20 20 Q18 10 25 2 Q35 8 32 20 Q30 35 30 60 Z"
+                      fill="#F5F0E0" stroke="#C8B898" stroke-width="0.5"/>
+                <path d="M29 120 L29 55" stroke="#2C1810" stroke-width="1.5"/>
+                <path d="M28 120 L30 118 L29 120" fill="#2C1810"/>
+                <!-- Feather barbs -->
+                <path d="M25 30 Q20 25 15 28" stroke="#E8E0D0" stroke-width="0.5" fill="none"/>
+                <path d="M24 22 Q18 18 14 22" stroke="#E8E0D0" stroke-width="0.5" fill="none"/>
+                <path d="M32 25 Q37 20 40 24" stroke="#E8E0D0" stroke-width="0.5" fill="none"/>
+                <path d="M33 18 Q38 14 42 18" stroke="#E8E0D0" stroke-width="0.5" fill="none"/>
             </svg>
-        </div>
-        <div class="butterfly bf-2">
-            <svg viewBox="0 0 35 25" width="35" height="25">
-                <g class="bf-wings">
-                    <path d="M17 12 Q9 4 4 8 Q0 12 9 15 Z" fill="#7CB9E8" opacity="0.8"/>
-                    <path d="M17 12 Q25 4 31 8 Q35 12 26 15 Z" fill="#7CB9E8" opacity="0.8"/>
-                    <path d="M17 12 Q10 17 7 19 Q9 21 15 17 Z" fill="#89CFF0" opacity="0.7"/>
-                    <path d="M17 12 Q24 17 28 19 Q26 21 20 17 Z" fill="#89CFF0" opacity="0.7"/>
-                </g>
-                <ellipse cx="17" cy="12" rx="1.2" ry="4" fill="#333"/>
+
+            <!-- Inkwell -->
+            <svg class="inkwell" viewBox="0 0 40 45" width="35" height="40">
+                <path d="M8 15 Q6 25 8 40 L32 40 Q34 25 32 15 Z" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <ellipse cx="20" cy="15" rx="12" ry="5" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <ellipse cx="20" cy="14" rx="8" ry="3" fill="#0a0a2a"/>
+                <!-- Ink glint -->
+                <ellipse cx="18" cy="13" rx="2" ry="1" fill="rgba(100,100,180,0.3)"/>
+            </svg>
+
+            <!-- Small scroll -->
+            <svg class="scroll-item" viewBox="0 0 80 30" width="70" height="26">
+                <rect x="5" y="5" width="70" height="20" rx="3" fill="#E8D8B8" stroke="#C8B898" stroke-width="0.5"/>
+                <circle cx="5" cy="15" r="6" fill="#E8D8B8" stroke="#C8B898" stroke-width="0.5"/>
+                <circle cx="75" cy="15" r="6" fill="#E8D8B8" stroke="#C8B898" stroke-width="0.5"/>
+                <!-- Text hints -->
+                <line x1="15" y1="11" x2="65" y2="11" stroke="#B8A888" stroke-width="0.4"/>
+                <line x1="15" y1="15" x2="60" y2="15" stroke="#B8A888" stroke-width="0.4"/>
+                <line x1="15" y1="19" x2="55" y2="19" stroke="#B8A888" stroke-width="0.4"/>
             </svg>
         </div>
 
-        <!-- Flowers -->
-        <div class="flower fl-1">
-            <div class="flower-stem"></div>
-            <div class="flower-head">
-                <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-                <div class="petal"></div><div class="petal"></div>
-                <div class="flower-center"></div>
-            </div>
-        </div>
-        <div class="flower fl-2">
-            <div class="flower-stem"></div>
-            <div class="flower-head">
-                <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-                <div class="petal"></div><div class="petal"></div>
-                <div class="flower-center"></div>
-            </div>
-        </div>
-        <div class="flower fl-3">
-            <div class="flower-stem"></div>
-            <div class="flower-head">
-                <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-                <div class="petal"></div><div class="petal"></div>
-                <div class="flower-center"></div>
-            </div>
-        </div>
+        <!-- Arcane symbols floating faintly -->
+        <div class="arcane-symbols" id="arcaneSymbols"></div>
 
-        <!-- Title overlay -->
-        <div class="title-container">
-            <h1 class="title">
-                <span class="title-word" style="--i:0">S</span><span class="title-word" style="--i:1">c</span><span class="title-word" style="--i:2">i</span><span class="title-word" style="--i:3">e</span><span class="title-word" style="--i:4">n</span><span class="title-word" style="--i:5">c</span><span class="title-word" style="--i:6">e</span><span class="title-word title-space" style="--i:7">&nbsp;</span><span class="title-word" style="--i:8">E</span><span class="title-word" style="--i:9">s</span><span class="title-word" style="--i:10">s</span><span class="title-word" style="--i:11">e</span><span class="title-word" style="--i:12">n</span><span class="title-word" style="--i:13">c</span><span class="title-word" style="--i:14">e</span>
-            </h1>
-            <p class="subtitle">Exploring the beauty of the natural world</p>
-            <div class="cta-button">
-                <a href="#" class="enter-btn">Enter</a>
-            </div>
-        </div>
+        <!-- Vignette -->
+        <div class="vignette"></div>
 
-        <!-- Scroll indicator -->
-        <div class="scroll-hint">
-            <div class="scroll-arrow"></div>
+        <!-- Enter prompt -->
+        <div class="enter-area">
+            <p class="enter-prompt">Open the book...</p>
+            <a href="#" class="enter-btn">Enter</a>
         </div>
     </div>
 
